@@ -1,0 +1,108 @@
+{
+  description = "Anmayithap's nix configuration for both NixOS & macOS";
+
+  inputs = {
+    # ===== NixOS =====
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+
+    # ===== MacOS =====
+    nix-darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # ===== home-manager =====
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # ===== secrets management =====
+    agenix = {
+      url = "github:ryantm/agenix/564595d0ad4be7277e07fa63b5a991b3c645655d";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        darwin.follows = "nix-darwin";
+        home-manager.follows = "home-manager";
+      };
+    };
+
+    # ===== development tools =====
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # =====  My own repositories =====
+
+    secrets = {
+      url = "git+ssh://git@github.com/anmayithap/nix-secrets.git";
+      flake = false;
+    };
+  };
+
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    nix-darwin,
+    home-manager,
+    agenix,
+    pre-commit-hooks,
+    secrets,
+    ...
+  }: let
+    available-systems = ["aarch64-darwin" "x86_64-linux"];
+
+    internal = import ./_internal {
+      inherit inputs available-systems;
+    };
+  in
+    internal.configuration-tools.mkConfigurations {
+      profiles = [
+        {
+          system = "aarch64-darwin";
+          hostname = "maple";
+        }
+      ];
+    }
+    // {
+      checks = internal.common-tools.forAllSystems (
+        system: pkgs: {
+          pre-commit-check = pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              alejandra.enable = true;
+              statix.enable = true;
+              deadnix = {
+                enable = true;
+                args = ["-lL"];
+              };
+            };
+          };
+        }
+      );
+
+      devShells = internal.common-tools.forAllSystems (
+        system: pkgs: {
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              alejandra
+              statix
+              deadnix
+              nil
+              nixd
+            ];
+            name = "dots";
+            shellHook = ''
+              ${self.checks.${system}.pre-commit-check.shellHook}
+            '';
+          };
+        }
+      );
+
+      formatter = internal.common-tools.forAllSystems (system: pkgs: pkgs.alejandra);
+    };
+}
