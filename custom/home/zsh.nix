@@ -46,24 +46,6 @@ This module provides custom configurations for Zsh.
       zstyle :completion:* menu select
       zstyle ':completion:*:*:*:*:*' menu select group
       zstyle ':completion::complete:*' use-cache 1
-
-      #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-      # => KEY BINDINGS
-      #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-      bindkey '\C-a' backward-char          # Ctrl+A to move cursor one character backward
-      bindkey "\C-o" accept-line            # Ctrl+F to accept the current line (like Enter)
-      bindkey '\C-h' up-line-or-history     # Ctrl+H to move up in history
-      bindkey '\C-g' down-line-or-history   # Ctrl+G to move down in history
-      bindkey '^[[27;5;44~' backward-word   # Ctrl+, jump word left
-      bindkey '^[[27;5;46~' forward-word    # Ctrl+. jump word right
-
-      # Function to delete current word or previous word
-      delete-word-back-or-current() {
-        [[ $CURSOR -eq 0 || "''${LBUFFER[-1]}" =~ [[:space:]] ]] &&
-        zle backward-kill-word || { zle backward-word; zle kill-word }
-      }
-      zle -N delete-word-back-or-current
-      bindkey '^\' delete-word-back-or-current  # Ctrl+\ to delete current or previous word
     '';
 
     ".zprofile" = ''

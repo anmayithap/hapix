@@ -7,6 +7,7 @@
     "zinit light zsh-users/zsh-history-substring-search"
     "zinit light MichaelAquilina/zsh-you-should-use"
     "zinit light wfxr/forgit"
+    "zinit light jeffreytse/zsh-vi-mode"
   ];
 
   defaultSnippets = [

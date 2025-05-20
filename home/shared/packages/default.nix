@@ -14,7 +14,7 @@
 
     # Development tools
     obsidian
-    atac
+    posting
 
     # Misc
     xclip
