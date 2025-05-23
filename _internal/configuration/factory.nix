@@ -25,12 +25,13 @@ Functions:
         ++ [
           home-manager.darwinModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "home-manager.backup";
-
-            home-manager.extraSpecialArgs = specialArgs;
-            home-manager.users."${profile.username}".imports = home-modules;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "home-manager.backup";
+              extraSpecialArgs = specialArgs;
+              users."${profile.username}".imports = home-modules;
+            };
           }
         ];
     };

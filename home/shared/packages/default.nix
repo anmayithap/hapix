@@ -14,7 +14,10 @@
 
     # Development tools
     obsidian
-    posting
+    atac
+
+    # Networking tools
+    httpie
 
     # Misc
     xclip

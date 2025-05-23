@@ -125,82 +125,84 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
-    home.packages = [cfg.package];
+    home = {
+      packages = [cfg.package];
 
-    home.sessionVariables.ZDOTDIR = cfg.zdotdir;
+      sessionVariables.ZDOTDIR = cfg.zdotdir;
 
-    home.activation.ensureZSHdirExists = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      if [ ! -d "${cfg.zdotdir}" ]; then
-        $DRY_RUN_CMD mkdir -p "${cfg.zdotdir}"
-        $DRY_RUN_CMD echo "Created Zsh configuration directory: ${cfg.zdotdir}"
-      fi
-    '';
+      activation.ensureZSHdirExists = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        if [ ! -d "${cfg.zdotdir}" ]; then
+          $DRY_RUN_CMD mkdir -p "${cfg.zdotdir}"
+          $DRY_RUN_CMD echo "Created Zsh configuration directory: ${cfg.zdotdir}"
+        fi
+      '';
 
-    home.file = let
-      allRelevantFileNames = lib.unique (
-        (lib.attrNames baseContents) ++ (lib.attrNames cfg.configFiles)
-      );
+      file = let
+        allRelevantFileNames = lib.unique (
+          (lib.attrNames baseContents) ++ (lib.attrNames cfg.configFiles)
+        );
 
-      generatedFilesList = lib.forEach allRelevantFileNames (
-        fileName: let
-          userFileCfg = cfg.configFiles.${fileName} or {};
-          fileOptions = {
-            fragments = userFileCfg.fragments or {};
-            creationMethod = userFileCfg.creationMethod or "symlink";
-          };
+        generatedFilesList = lib.forEach allRelevantFileNames (
+          fileName: let
+            userFileCfg = cfg.configFiles.${fileName} or {};
+            fileOptions = {
+              fragments = userFileCfg.fragments or {};
+              creationMethod = userFileCfg.creationMethod or "symlink";
+            };
 
-          targetPathInHome = "${cfg.zdotdir}/${fileName}";
+            targetPathInHome = "${cfg.zdotdir}/${fileName}";
 
-          userFragmentsList =
-            lib.mapAttrsToList
-            (name: value: value // {fragmentName = name;})
-            fileOptions.fragments;
+            userFragmentsList =
+              lib.mapAttrsToList
+              (name: value: value // {fragmentName = name;})
+              fileOptions.fragments;
 
-          sortedUserFragments =
-            lib.sort
-            (a: b: (a.order < b.order) || (a.order == b.order && a.fragmentName < b.fragmentName))
-            userFragmentsList;
+            sortedUserFragments =
+              lib.sort
+              (a: b: (a.order < b.order) || (a.order == b.order && a.fragmentName < b.fragmentName))
+              userFragmentsList;
 
-          baseContentForFile = baseContents.${fileName} or null;
+            baseContentForFile = baseContents.${fileName} or null;
 
-          allContentParts =
-            (lib.optional (baseContentForFile != null) baseContentForFile)
-            ++ (lib.map (fragment: fragment.text) sortedUserFragments);
+            allContentParts =
+              (lib.optional (baseContentForFile != null) baseContentForFile)
+              ++ (lib.map (fragment: fragment.text) sortedUserFragments);
 
-          fullContent = lib.concatStringsSep "\n" allContentParts;
+            fullContent = lib.concatStringsSep "\n" allContentParts;
 
-          isExplicitlyDefinedByUser = cfg.configFiles ? ${fileName};
-          shouldCreateFile = (fullContent != "") || isExplicitlyDefinedByUser;
+            isExplicitlyDefinedByUser = cfg.configFiles ? ${fileName};
+            shouldCreateFile = (fullContent != "") || isExplicitlyDefinedByUser;
 
-          fileDefinition =
-            if !shouldCreateFile
-            then null
-            else if fileOptions.creationMethod == "symlink"
-            then {
-              source = pkgs.writeTextFile {
-                name = "hm-managed-zsh-${lib.strings.sanitizeDerivationName fileName}";
+            fileDefinition =
+              if !shouldCreateFile
+              then null
+              else if fileOptions.creationMethod == "symlink"
+              then {
+                source = pkgs.writeTextFile {
+                  name = "hm-managed-zsh-${lib.strings.sanitizeDerivationName fileName}";
+                  text = fullContent + lib.optionalString (fullContent != "") "\n";
+                };
+              }
+              else {
                 text = fullContent + lib.optionalString (fullContent != "") "\n";
               };
-            }
+          in
+            if fileDefinition == null
+            then null
             else {
-              text = fullContent + lib.optionalString (fullContent != "") "\n";
-            };
-        in
-          if fileDefinition == null
-          then null
-          else {
-            name = targetPathInHome;
-            value = fileDefinition;
-          }
-      );
+              name = targetPathInHome;
+              value = fileDefinition;
+            }
+        );
 
-      finalFiles = lib.listToAttrs (lib.filter (item: item != null) generatedFilesList);
-    in
-      finalFiles
-      // {
-        "${config.home.homeDirectory}/.zshenv".text = ''
-          ZDOTDIR=${cfg.zdotdir}
-        '';
-      };
+        finalFiles = lib.listToAttrs (lib.filter (item: item != null) generatedFilesList);
+      in
+        finalFiles
+        // {
+          "${config.home.homeDirectory}/.zshenv".text = ''
+            ZDOTDIR=${cfg.zdotdir}
+          '';
+        };
+    };
   };
 }

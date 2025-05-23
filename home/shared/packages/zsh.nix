@@ -69,6 +69,8 @@ in {
         alias cp='cp -r'
         alias mkd='mkdir -p'
         alias ngc='nix-collect-garbage -d && sudo nix-collect-garbage -d'
+        alias nh='nix profile history --profile /nix/var/nix/profiles/system'
+        alias nc='sudo nix profile wipe-history --profile /nix/var/nix/profiles/system'
         alias cl='clear'
         alias tl='tldr'
       '';

@@ -65,22 +65,21 @@ in {
   config =
     lib.mkIf
     (cfg.enable && zshEnabled) {
-      home.packages = [cfg.package];
-
-      home.sessionVariables.ZINIT_HOME = cfg.homeDirectory;
-      home.sessionVariables.ZINIT_BIN = cfg.scriptsDirectory;
-
-      home.file."${cfg.scriptsDirectory}" = {
-        source = cfg.package.src;
-        recursive = true;
+      home = {
+        packages = [cfg.package];
+        sessionVariables.ZINIT_HOME = cfg.homeDirectory;
+        sessionVariables.ZINIT_BIN = cfg.scriptsDirectory;
+        file."${cfg.scriptsDirectory}" = {
+          source = cfg.package.src;
+          recursive = true;
+        };
+        activation.ensureZinitHomeDirectoryExists = lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration"] ''
+          if [ ! -d "${cfg.homeDirectory}" ]; then
+            $DRY_RUN_CMD mkdir -p "${cfg.homeDirectory}"
+            $DRY_RUN_CMD echo "Created zinit home directory: ${cfg.homeDirectory}"
+          fi
+        '';
       };
-
-      home.activation.ensureZinitHomeDirectoryExists = lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration"] ''
-        if [ ! -d "${cfg.homeDirectory}" ]; then
-          $DRY_RUN_CMD mkdir -p "${cfg.homeDirectory}"
-          $DRY_RUN_CMD echo "Created zinit home directory: ${cfg.homeDirectory}"
-        fi
-      '';
 
       custom.zsh.configFiles.".zshrc".fragments."zinit-loader" = {
         text = ''
