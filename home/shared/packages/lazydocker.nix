@@ -11,10 +11,16 @@ in {
     enable = lib.mkDefault true;
   };
 
-  custom.zsh.configFiles.".zshrc".fragments."lazydocker-aliases" = lib.mkIf zshEnabled {
-    text = ''
-      alias lzd='lazydocker'
-    '';
-    order = 908;
-  };
+  custom.zsh.configFiles.".zshrc".fragments."lazydocker-aliases" =
+    lib.mkIf
+    (zshEnabled && dockerEnabled) {
+      text = ''
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        # => LAZYDOCKER ALIASES
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+        alias lzd='${lib.getExe config.programs.lazydocker.package}'
+      '';
+      order = 907;
+    };
 }

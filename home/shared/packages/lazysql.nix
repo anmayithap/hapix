@@ -12,8 +12,12 @@ in {
 
   custom.zsh.configFiles.".zshrc".fragments."lazysql-aliases" = lib.mkIf zshEnabled {
     text = ''
+      #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+      # => LAZYSQL ALIASES
+      #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
       alias lzq='lazysql'
     '';
-    order = 910;
+    order = 909;
   };
 }

@@ -11,7 +11,11 @@ in {
 
   custom.zsh.configFiles.".zshrc".fragments."ripgrep-aliases" = lib.mkIf zshEnabled {
     text = ''
-      alias grep='rg'
+      #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+      # => RIPGREP ALIASES
+      #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+      alias grep='${lib.getExe config.programs.ripgrep.package}'
     '';
     order = 910;
   };

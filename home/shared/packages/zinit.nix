@@ -29,6 +29,8 @@ in {
 
   custom.zsh.configFiles.".zshrc".fragments."zinit-ztyles" = {
     text = ''
+      # zinit ztyles (managed by custom/zinit module)
+
       zstyle ':omz:plugins:alias-finder' autoload yes
       zstyle ':omz:plugins:alias-finder' longer yes
       zstyle ':omz:plugins:alias-finder' exact yes

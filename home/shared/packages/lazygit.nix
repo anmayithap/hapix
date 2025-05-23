@@ -11,10 +11,16 @@ in {
     enable = lib.mkDefault true;
   };
 
-  custom.zsh.configFiles.".zshrc".fragments."lazygit-aliases" = lib.mkIf zshEnabled {
-    text = ''
-      alias lzg='lazygit'
-    '';
-    order = 909;
-  };
+  custom.zsh.configFiles.".zshrc".fragments."lazygit-aliases" =
+    lib.mkIf
+    (zshEnabled && gitEnabled) {
+      text = ''
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        # => LAZYGIT ALIASES
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+        alias lzg='${lib.getExe config.programs.lazygit.package}'
+      '';
+      order = 908;
+    };
 }
