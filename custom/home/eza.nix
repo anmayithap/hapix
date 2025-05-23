@@ -21,11 +21,18 @@ in {
       FPATH = lib.mkIf zshEnabled "${cfg.package}/completions/zsh:$FPATH";
     };
 
-    custom.zsh.configFiles.".zshrc".fragments."_eza-aliases" = {
+    custom.zsh.configFiles.".zshrc".fragments."eza-aliases" = {
       text = ''
-        alias ls='eza -A -F --group-directories-first --sort=extension --color=always "$@"'
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        # => EZA ALIASES
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+        alias ls='${lib.getExe cfg.package} -A -F --group-directories-first --sort=extension --color=always "$@"'
+        alias l='ls'
+        alias ld='ls -d */'
+        alias ll='ls -l --header --git --git-repos'
       '';
-      order = 902;
+      order = 904;
     };
   };
 }

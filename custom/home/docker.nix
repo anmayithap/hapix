@@ -21,9 +21,9 @@ in {
       text = ''
         # docker completions (managed by custom/docker module)
 
-        eval "$(docker completion zsh)"
+        eval "$(${lib.getExe cfg.package} completion zsh)"
       '';
-      order = 1005;
+      order = 1003;
     };
   };
 }

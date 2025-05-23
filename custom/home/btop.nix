@@ -14,5 +14,16 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [cfg.package];
+
+    custom.zsh.configFiles.".zshrc".fragments."btop-aliases" = {
+      text = ''
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        # => BTOP ALIASES
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+        alias top='btop'
+      '';
+      order = 903;
+    };
   };
 }

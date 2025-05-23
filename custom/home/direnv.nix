@@ -51,7 +51,7 @@ in {
       text = ''
         eval "$(${lib.getExe cfg.package} hook zsh)"
       '';
-      order = 1003;
+      order = 1002;
     };
 
     home.sessionVariables = lib.mkIf cfg.silent {DIRENV_LOG_FORMAT = "";};

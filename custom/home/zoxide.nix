@@ -29,7 +29,7 @@ in {
 
         eval "$(${lib.getExe cfg.package} init zsh --cmd cd)"
       '';
-      order = 1002;
+      order = 1007;
     };
   };
 }

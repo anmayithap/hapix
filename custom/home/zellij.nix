@@ -19,9 +19,13 @@ in {
 
     custom.zsh.configFiles.".zshrc".fragments."zellij-aliases" = lib.mkIf zshEnabled {
       text = ''
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        # => ZELLIJ ALIASES
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
         alias zj='zellij'
       '';
-      order = 907;
+      order = 905;
     };
   };
 }

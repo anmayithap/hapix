@@ -14,5 +14,16 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [cfg.package];
+
+    custom.zsh.configFiles.".zshrc".fragments."bat-aliases" = {
+      text = ''
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        # => BAT ALIASES
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+        alias cat='bat'
+      '';
+      order = 902;
+    };
   };
 }

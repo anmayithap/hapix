@@ -19,9 +19,9 @@ in {
       text = ''
         # colima completions (managed by custom/colima module)
 
-        eval "$(colima completion zsh)"
+        eval "$(${lib.getExe cfg.package} completion zsh)"
       '';
-      order = 1006;
+      order = 1001;
     };
   };
 }

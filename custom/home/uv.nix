@@ -24,7 +24,7 @@ in {
         eval "$(uv generate-shell-completion zsh)"
         eval "$(uvx --generate-shell-completion zsh)"
       '';
-      order = 1000;
+      order = 1006;
     };
   };
 }

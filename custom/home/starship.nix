@@ -21,7 +21,7 @@ in {
 
         eval "$(starship init zsh)"
       '';
-      order = 1007;
+      order = 1005;
     };
   };
 }

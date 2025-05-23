@@ -19,6 +19,8 @@ in {
 
     custom.zsh.configFiles.".zshrc".fragments."fzf-options" = lib.mkIf zshEnabled {
       text = ''
+        # fzf options (managed by custom/fzf module)
+
         zstyle ':fzf-tab:complete:(\\|)git:*' fzf-preview 'git diff $word | delta || git diff $word'
         zstyle ':fzf-tab:complete:(\\|)systemctl:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
         zstyle ':fzf-tab:complete:(\\|)docker:*' fzf-preview 'docker ps --filter \"name=$word\"'
@@ -32,9 +34,11 @@ in {
 
     custom.zsh.configFiles.".zshrc".fragments."fzf-completions" = lib.mkIf zshEnabled {
       text = ''
-        source <(fzf --zsh)
+        # fzf completions (managed by custom/fzf module)
+
+        source <(${lib.getExe cfg.package} --zsh)
       '';
-      order = 1001;
+      order = 1004;
     };
 
     home.sessionVariables.FZF_DEFAULT_OPTS = ''
