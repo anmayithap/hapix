@@ -20,16 +20,6 @@ in {
       default = {};
     };
 
-    attachExistingSession = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-
-    exitShellOnExit = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-
     themes = lib.mkOption {
       type = lib.types.attrsOf (
         lib.types.oneOf [
@@ -73,55 +63,15 @@ in {
         cfg.themes)
     ];
 
-    custom.zsh.configFiles = lib.mkIf zshEnabled {
-      ".zshenv".fragments = {
-        "zellij-env-variables" = {
-          text = ''
-            export ZELLIJ_AUTO_ATTACH=${
-              if cfg.attachExistingSession
-              then "true"
-              else "false"
-            }
-            export ZELLIJ_AUTO_EXIT=${
-              if cfg.exitShellOnExit
-              then "true"
-              else "false"
-            }
-          '';
-          order = 101;
-        };
-      };
-      ".zshrc".fragments = {
-        "zellij-completions" = {
-          text = ''
-            # zellij completions (managed by custom/zellij module)
+    custom.zsh.configFiles.".zshrc".fragments."zellij-aliases" = lib.mkIf zshEnabled {
+      text = ''
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        # => ZELLIJ ALIASES
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-            eval "$(${lib.getExe cfg.package} setup --generate-auto-start zsh)"
-          '';
-          order = 1008;
-        };
-        "zellij-aliases" = lib.mkIf zshEnabled {
-          text = ''
-            #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-            # => ZELLIJ ALIASES
-            #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-            alias zj='zellij'
-          '';
-          order = 905;
-        };
-      };
-    };
-
-    home.sessionVariables = lib.mkIf zshEnabled {
-      ZELLIJ_AUTO_ATTACH =
-        if cfg.attachExistingSession
-        then "true"
-        else "false";
-      ZELLIJ_AUTO_EXIT =
-        if cfg.exitShellOnExit
-        then "true"
-        else "false";
+        alias zj='zellij'
+      '';
+      order = 905;
     };
   };
 }
