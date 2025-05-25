@@ -36,10 +36,12 @@ Functions:
           inherit profile specialArgs;
 
           darwin-modules = [
+            ../../apps-patch.nix
             ../../modules/darwin
           ];
 
           home-modules = [
+            ../../apps-patch.nix
             ../../home/darwin
             ../../custom
             ../../hosts/${profile.username}-${profile.hostname}/home.nix
