@@ -73,5 +73,16 @@ in {
       '';
       order = 905;
     };
+
+    custom.zsh.configFiles.".zshrc".fragments."zellij-completions" = lib.mkIf zshEnabled {
+      text = ''
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        # => ZELLIJ COMPLETIONS
+        #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+        . <( zellij setup --generate-completion zsh | sed -Ee 's/^(_(zellij) ).*/compdef \1\2/' )
+      '';
+      order = 1008;
+    };
   };
 }
