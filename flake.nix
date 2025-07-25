@@ -66,6 +66,10 @@
           system = "aarch64-darwin";
           hostname = "maple";
         }
+        {
+          system = "x86_64-linux";
+          hostname = "nixos";
+        }
       ];
     }
     // {
