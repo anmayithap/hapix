@@ -5,7 +5,7 @@
     # ===== NixOS =====
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     # ===== MacOS =====
     nix-darwin = {
@@ -22,7 +22,7 @@
 
     # ===== secrets management =====
     agenix = {
-      url = "github:ryantm/agenix/564595d0ad4be7277e07fa63b5a991b3c645655d";
+      url = "github:ryantm/agenix/531beac616433bac6f9e2a19feb8e99a22a66baf";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         darwin.follows = "nix-darwin";

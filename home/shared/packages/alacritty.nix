@@ -16,7 +16,7 @@
           lines = 52;
           columns = 120;
         };
-        opacity = 0.9;
+        opacity = 1;
         blur = true;
         startup_mode = "Maximized";
         title = "${profile.hostname}tty";

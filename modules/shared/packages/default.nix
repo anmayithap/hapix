@@ -8,6 +8,7 @@
   environment.systemPackages = with pkgs; [
     # Languages
     python313
+    go
 
     # File system tools
     ncdu

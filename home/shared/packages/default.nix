@@ -14,7 +14,7 @@
 
     # Development tools
     obsidian
-    atac
+    python313Packages.ipython
 
     # Networking tools
     httpie

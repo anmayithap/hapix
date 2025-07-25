@@ -1,6 +1,6 @@
 {lib, ...}: {
   custom.aider = {
-    enable = lib.mkDefault true;
+    enable = lib.mkDefault false;
 
     config = {
       model = lib.mkDefault "gemini/gemini-2.5-flash-preview-04-17";
