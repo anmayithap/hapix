@@ -51,7 +51,13 @@ Functions:
 
     nixosSystem =
       if isLinux
-      then {}
+      then
+        factory-tools.mkLinux {
+          inherit profile specialArgs;
+
+          linux-modules = [];
+          home-modules = [];
+        }
       else null;
   };
 

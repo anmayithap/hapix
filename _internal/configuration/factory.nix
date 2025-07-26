@@ -6,9 +6,11 @@ environments or systems, such as 'nix-darwin' or 'home-manager' modules.
 Functions:
 1. mkDarwin: {profile, specialArgs, darwin-modules, home-modules} -> nix-darwin.lib.darwinSystem
   Creates a NixOS configuration for 'nix-darwin' systems.
+2. mkLinux: {profile, specialArgs, linux-modules, home-modules} -> nixpkgs.lib.nixosSystem
+  Creates a NixOS configuration for Linux systems.
 */
 {inputs}: let
-  inherit (inputs) nix-darwin home-manager;
+  inherit (inputs) nixpkgs nix-darwin home-manager;
 
   mkDarwin = {
     profile,
@@ -34,6 +36,17 @@ Functions:
             };
           }
         ];
+    };
+
+  mkLinux = {
+    profile,
+    specialArgs,
+    linux-modules,
+    home-modules,
+  }:
+    nixpkgs.lib.nixosSystem {
+      inherit (profile) system;
+      inherit specialArgs;
     };
 in {
   inherit mkDarwin;

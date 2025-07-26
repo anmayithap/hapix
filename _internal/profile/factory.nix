@@ -44,9 +44,7 @@ Functions:
     assert validation-tools.validate
     (builtins.elem system available-systems)
     "The system name '${system}' is not supported. Supported systems include: ${toString available-systems}.";
-    assert validation-tools.validate
-    (!isLinux)
-    "The system '${system}' is not supported because Linux configurations are not ready yet."; {
+    {
       inherit system hostname username fullname email;
 
       homeDirectory = mkHomeDirectory {
