@@ -49,5 +49,5 @@ Functions:
       inherit specialArgs;
     };
 in {
-  inherit mkDarwin;
+  inherit mkDarwin mkLinux;
 }
