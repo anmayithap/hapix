@@ -10,21 +10,36 @@ Functions:
   Creates a NixOS configuration for Linux systems.
 */
 {inputs}: let
-  inherit (inputs) nixpkgs nix-darwin home-manager;
-
   mkDarwin = {
+    inputs,
+    lib,
     profile,
-    specialArgs,
+    common-tools,
+    validation-tools,
+    genSpecialArgs,
     darwin-modules,
-    home-modules,
-  }:
-    nix-darwin.lib.darwinSystem {
+    home-modules ? [],
+    specialArgs ? (genSpecialArgs profile.system),
+  }: let
+    inherit (inputs) nixpkgs-darwin home-manager nix-darwin;
+  in nix-darwin.lib.darwinSystem {
       inherit (profile) system;
       inherit specialArgs;
 
       modules =
         darwin-modules
         ++ [
+          (
+            { lib, ... }:
+            {
+              nixpkgs.pkgs = common-tools.pkgsForSystem {
+                inherit (profile) system;
+                source = nixpkgs-darwin;
+              };
+            }
+          )
+        ]
+        ++ (lib.optionals ((lib.lists.length home-modules) > 0) [
           home-manager.darwinModules.home-manager
           {
             home-manager = {
@@ -35,18 +50,38 @@ Functions:
               users."${profile.username}".imports = home-modules;
             };
           }
-        ];
+        ]);
     };
 
   mkLinux = {
+    inputs,
+    lib,
     profile,
-    specialArgs,
+    common-tools,
+    validation-tools,
+    genSpecialArgs,
     linux-modules,
-    home-modules,
+    home-modules ? [],
+    specialArgs ? (genSpecialArgs profile.system),
   }:
     nixpkgs.lib.nixosSystem {
       inherit (profile) system;
       inherit specialArgs;
+
+  modules =
+    nixos-modules
+    ++ (lib.optionals ((lib.lists.length home-modules) > 0) [
+      home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "home-manager.backup";
+              extraSpecialArgs = specialArgs;
+              users."${profile.username}".imports = home-modules;
+            };
+          }
+    ]);
     };
 in {
   inherit mkDarwin mkLinux;

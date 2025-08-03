@@ -18,22 +18,29 @@ Functions:
   inherit (nixpkgs) lib;
 
   mkConfiguration = {
-    pkgs,
-    stable-pkgs,
+    pkgs-stable,
+    pkgs-unstable,
     profile,
   }: let
     isDarwin = common-tools.isDarwinBySystemName profile.system;
     isLinux = common-tools.isLinuxBySystemName profile.system;
 
-    specialArgs = {
-      inherit profile pkgs stable-pkgs inputs common-tools validation-tools;
+    genSpecialArgs =
+      system:
+      inputs
+      // {
+        inherit profile common-tools validation-tools pkgs-stable pkgs-unstable;
+    };
+
+    args = {
+      inherit inputs lib profile common-tools validation-tools genSpecialArgs;
     };
   in {
     darwinSystem =
       if isDarwin
       then
         factory-tools.mkDarwin {
-          inherit profile specialArgs;
+          inherit args;
 
           darwin-modules = [
             ../../apps-patch.nix
@@ -53,7 +60,7 @@ Functions:
       if isLinux
       then
         factory-tools.mkLinux {
-          inherit profile specialArgs;
+          inherit args;
 
           linux-modules = [];
           home-modules = [];
@@ -69,11 +76,13 @@ Functions:
         name = profile.hostname;
         value = mkConfiguration {
           inherit profile;
-          pkgs = common-tools.pkgsForSystem {
+
+          pkgs-unstable = common-tools.pkgsForSystem {
             inherit (profile) system;
-            source = inputs.nixpkgs;
+            source = inputs.nixpkgs-unstable;
           };
-          stable-pkgs = common-tools.stablePkgsForSystem {
+
+          pkgs-stable = common-tools.pkgsForSystem {
             inherit (profile) system;
             source = inputs.nixpkgs-stable;
           };
