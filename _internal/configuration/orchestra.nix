@@ -102,7 +102,7 @@ Functions:
     nixosConfigurations = extractSystemType "nixosSystem";
     darwinConfigurations = extractSystemType "darwinSystem";
   } // {
-      checks = internal.common-tools.forAllSystems (
+      checks = common-tools.forAllSystems (
         system: pkgs: {
           pre-commit-check = pre-commit-hooks.lib.${system}.run {
             src = ./.;
@@ -118,7 +118,7 @@ Functions:
         }
       );
 
-      devShells = internal.common-tools.forAllSystems (
+      devShells = common-tools.forAllSystems (
         system: pkgs: {
           default = pkgs.mkShell {
             packages = with pkgs; [
@@ -136,7 +136,7 @@ Functions:
         }
       );
 
-      formatter = internal.common-tools.forAllSystems (system: pkgs: pkgs.alejandra);
+      formatter = common-tools.forAllSystems (system: pkgs: pkgs.alejandra);
     };
 in {
   inherit mkConfigurations;
