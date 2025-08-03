@@ -58,7 +58,9 @@ Functions:
         factory-tools.mkLinux {
           inherit inputs lib profile common-tools validation-tools genSpecialArgs;
 
-          linux-modules = [];
+          linux-modules = [
+            ../../modules/linux
+          ];
           home-modules = [];
         }
       else null;
