@@ -66,7 +66,10 @@ Functions:
       else null;
   };
 
-  mkConfigurations = {profiles}: let
+  mkConfigurations = {
+    self,
+    profiles,
+  }: let
     processedProfiles = lib.map (profileData: profile-tools.mkProfile profileData) profiles;
 
     allConfigurations = lib.listToAttrs (

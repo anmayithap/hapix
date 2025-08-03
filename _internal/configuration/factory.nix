@@ -71,7 +71,7 @@ Functions:
       inherit specialArgs;
 
   modules =
-    nixos-modules
+    linux-modules
     ++ (lib.optionals ((lib.lists.length home-modules) > 0) [
       home-manager.nixosModules.home-manager
           {

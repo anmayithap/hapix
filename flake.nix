@@ -63,6 +63,8 @@
     };
   in
     internal.configuration-tools.mkConfigurations {
+      inherit self;
+
       profiles = [
         {
           system = "aarch64-darwin";
