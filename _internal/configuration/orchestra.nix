@@ -31,16 +31,12 @@ Functions:
       // {
         inherit profile common-tools validation-tools pkgs-stable pkgs-unstable;
     };
-
-    args = {
-      inherit inputs lib profile common-tools validation-tools genSpecialArgs;
-    };
   in {
     darwinSystem =
       if isDarwin
       then
         factory-tools.mkDarwin {
-          inherit args;
+          inherit inputs lib profile common-tools validation-tools genSpecialArgs;
 
           darwin-modules = [
             ../../apps-patch.nix
@@ -60,7 +56,7 @@ Functions:
       if isLinux
       then
         factory-tools.mkLinux {
-          inherit args;
+          inherit inputs lib profile common-tools validation-tools genSpecialArgs;
 
           linux-modules = [];
           home-modules = [];
