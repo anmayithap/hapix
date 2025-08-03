@@ -101,7 +101,43 @@ Functions:
   in {
     nixosConfigurations = extractSystemType "nixosSystem";
     darwinConfigurations = extractSystemType "darwinSystem";
-  };
+  } // {
+      checks = internal.common-tools.forAllSystems (
+        system: pkgs: {
+          pre-commit-check = pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              alejandra.enable = true;
+              statix.enable = true;
+              deadnix = {
+                enable = true;
+                args = ["-lL"];
+              };
+            };
+          };
+        }
+      );
+
+      devShells = internal.common-tools.forAllSystems (
+        system: pkgs: {
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              alejandra
+              statix
+              deadnix
+              nil
+              nixd
+            ];
+            name = "dots";
+            shellHook = ''
+              ${self.checks.${system}.pre-commit-check.shellHook}
+            '';
+          };
+        }
+      );
+
+      formatter = internal.common-tools.forAllSystems (system: pkgs: pkgs.alejandra);
+    };
 in {
   inherit mkConfigurations;
 }
