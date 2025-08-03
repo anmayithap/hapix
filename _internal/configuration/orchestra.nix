@@ -104,7 +104,7 @@ Functions:
   } // {
       checks = common-tools.forAllSystems (
         system: pkgs: {
-          pre-commit-check = pre-commit-hooks.lib.${system}.run {
+          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
             src = ./.;
             hooks = {
               alejandra.enable = true;
