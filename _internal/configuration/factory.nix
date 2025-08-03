@@ -63,7 +63,9 @@ Functions:
     linux-modules,
     home-modules ? [],
     specialArgs ? (genSpecialArgs profile.system),
-  }:
+  }: let
+    inherit (inputs) nixpkgs home-manager;
+  in
     nixpkgs.lib.nixosSystem {
       inherit (profile) system;
       inherit specialArgs;
