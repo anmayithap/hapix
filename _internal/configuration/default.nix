@@ -44,7 +44,7 @@ different environments and systems.
   mkConfigurations = profiles: let
     processedProfiles = processProfiles profiles;
 
-    processedConfigurations = lib.mapAttrs (hostname: hostConfig: hostConfig.processedConfiguration) processedProfiles;
+    processedConfigurations = lib.map (profile: mkConfiguration profile) processedProfiles;
   in {
     inherit processedConfigurations;
   };
