@@ -41,10 +41,12 @@ different environments and systems.
   in {
   };
 
-  mkConfigurations = profiles: {
+  mkConfigurations = profiles: let
     processedProfiles = processProfiles profiles;
 
-    processedConfigurations = lib.map (profile: mkConfiguration profile) processedProfiles;
+    processedConfigurations = lib.mapAttrs (hostname: hostConfig: hostConfig.processedConfiguration) processedProfiles;
+  in {
+    inherit processedConfigurations;
   };
 in {
   inherit mkConfigurations;
