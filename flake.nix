@@ -63,16 +63,19 @@
       inherit inputs available-systems;
     };
   in
-    internal.configuration-tools.mkConfigurations {
-      profiles = [
-        {
-          system = "aarch64-darwin";
-          hostname = "maple";
-        }
-        {
-          system = "x86_64-linux";
-          hostname = "nixos";
-        }
-      ];
+    {
+      inherit internal;
     };
+    # internal.configuration-tools.mkConfigurations {
+    #   profiles = [
+    #     {
+    #       system = "aarch64-darwin";
+    #       hostname = "maple";
+    #     }
+    #     {
+    #       system = "x86_64-linux";
+    #       hostname = "nixos";
+    #     }
+    #   ];
+    # };
 }
