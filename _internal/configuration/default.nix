@@ -19,7 +19,7 @@ different environments and systems.
   }: let
     inherit (profile) system;
 
-    _ = assert validation-tools.validate (lib.elem system available-systems) "System '${system}' is not supported. Available: ${lib.concatStringsSep ", " available-systems}";
+    _ = validation-tools.validate (lib.elem system available-systems) "System '${system}' is not supported. Available: ${lib.concatStringsSep ", " available-systems}";
 
     genSpecialArgs = system: inputs // {
       inherit profile common-tools validation-tools;
