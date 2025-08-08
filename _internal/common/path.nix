@@ -4,10 +4,9 @@ This module contains custom function to provide simple way of working with paths
 Functions:
 1. scanPaths: path -> [string] - returns list of files in given directory.
    If file name is default.nix, it will be included only if its extension is .nix.
+2. relativeToRoot: path -> path - returns path relative to root.
 */
-{nixpkgs}: let
-  inherit (nixpkgs) lib;
-
+{lib}: let
   scanPaths = path:
     builtins.map
     (f: (path + "/${f}"))
@@ -22,6 +21,7 @@ Functions:
             )
         )
         (builtins.readDir path)));
+  relativeToRoot = lib.path.append ../.;
 in {
-  inherit scanPaths;
+  inherit scanPaths relativeToRoot;
 }

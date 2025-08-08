@@ -22,6 +22,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # ===== flake tools =====
+
+    haumea = {
+      url = "github:nix-community/haumea/v0.2.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # ===== secrets management =====
     agenix = {
       url = "github:ryantm/agenix/531beac616433bac6f9e2a19feb8e99a22a66baf";
@@ -48,23 +55,15 @@
 
   outputs = inputs @ {
     self,
-    nixpkgs,
-    nix-darwin,
-    home-manager,
-    agenix,
-    pre-commit-hooks,
-    secrets,
     ...
   }: let
     available-systems = ["aarch64-darwin" "x86_64-linux"];
 
     internal = import ./_internal {
-      inherit inputs available-systems;
+      inherit self inputs available-systems;
     };
   in
     internal.configuration-tools.mkConfigurations {
-      inherit self;
-
       profiles = [
         {
           system = "aarch64-darwin";

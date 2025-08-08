@@ -2,14 +2,18 @@
 This module provides a function to create profiles.
 */
 {
-  validation-tools,
-  available-systems,
+  haumea,
   common-tools,
 }: let
-  constants = import ./constants.nix;
+  constants = haumea.lib.load {
+    src = ./constants.nix;
+  };
 
-  factory = import ./factory.nix {
-    inherit validation-tools available-systems common-tools constants;
+  factory = haumea.lib.load {
+    src = ./factory.nix;
+    inputs = {
+      inherit constants common-tools;
+    };
   };
 in {
   inherit (factory) mkProfile;

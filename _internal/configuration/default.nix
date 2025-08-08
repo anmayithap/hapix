@@ -5,18 +5,47 @@ It provides a flexible framework to streamline the configuration process across
 different environments and systems.
 */
 {
+  self,
+  lib,
+  haumea,
   inputs,
-  common-tools,
   profile-tools,
+  common-tools,
   validation-tools,
+  available-systems,
 }: let
-  factory-tools = import ./factory.nix {
-    inherit inputs;
+  processProfiles = profiles: lib.map (profileData: profile-tools.mkProfile profileData) profiles;
+
+  mkConfiguration = {
+    profile,
+  }: let
+    inherit (profile) system;
+
+    _ = assert validation-tools.validate (lib.elem system available-systems) "System '${system}' is not supported. Available: ${lib.concatStringsSep ", " available-systems}";
+
+    genSpecialArgs = system: inputs // {
+      inherit profile common-tools validation-tools common-tools;
+
+      pkgs-unstable = common-tools.pkgsForSystem {
+        inherit system;
+        source = inputs.nixpkgs-unstable;
+      };
+
+      pkgs-stable = common-tools.pkgsForSystem {
+        inherit system;
+        source = inputs.nixpkgs-stable;
+      };
+    };
+
+    args = {
+      inherit inputs lib profile common-tools validation-tools genSpecialArgs;
+    };
+  in {
   };
 
-  configuration-tools = import ./orchestra.nix {
-    inherit inputs common-tools profile-tools factory-tools validation-tools;
+  mkConfigurations = profiles: let in {
+    processedProfiles = processProfiles profiles;
   };
-in {
-  inherit (configuration-tools) mkConfigurations;
+{
+
 }

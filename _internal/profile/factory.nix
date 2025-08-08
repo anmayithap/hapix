@@ -15,8 +15,6 @@ Functions:
 */
 {
   constants,
-  validation-tools,
-  available-systems,
   common-tools,
 }: let
   inherit (common-tools) isDarwinBySystemName isLinuxBySystemName;
@@ -41,9 +39,6 @@ Functions:
     fullname = args.fullname or constants.fullname;
     email = args.email or constants.email;
   in
-    assert validation-tools.validate
-    (builtins.elem system available-systems)
-    "The system name '${system}' is not supported. Supported systems include: ${toString available-systems}.";
     {
       inherit system hostname username fullname email;
 

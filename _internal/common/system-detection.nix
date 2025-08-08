@@ -9,9 +9,9 @@ Functions:
 2. isLinuxBySystemName: system -> bool
   Checks if the system name ends with "linux".
 */
-{nixpkgs}: let
-  isDarwinBySystemName = system: nixpkgs.lib.strings.hasSuffix "darwin" system;
-  isLinuxBySystemName = system: nixpkgs.lib.strings.hasSuffix "linux" system;
+{lib}: let
+  isDarwinBySystemName = system: lib.strings.hasSuffix "darwin" system;
+  isLinuxBySystemName = system: lib.strings.hasSuffix "linux" system;
 in {
   inherit isDarwinBySystemName isLinuxBySystemName;
 }

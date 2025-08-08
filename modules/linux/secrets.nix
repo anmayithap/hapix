@@ -1,7 +1,6 @@
-{inputs, ...}: let
-  inherit (inputs) agenix;
-in {
+{inputs, ...}:
+{
   imports = [
-    agenix.nixosModules.default
+    inputs.agenix.nixosModules.default
   ];
 }
