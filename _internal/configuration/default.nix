@@ -5,7 +5,6 @@ It provides a flexible framework to streamline the configuration process across
 different environments and systems.
 */
 {
-  self,
   lib,
   haumea,
   inputs,
@@ -47,5 +46,5 @@ different environments and systems.
     processedProfiles = processProfiles profiles;
   };
 {
-
+  inherit mkConfigurations;
 }

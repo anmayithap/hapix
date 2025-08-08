@@ -2,7 +2,6 @@
 This module provides internal tools for the NixOS configuration.
 */
 {
-  self,
   inputs,
   available-systems ? ["aarch64-linux" "x86_64-linux"],
 }: let
@@ -41,7 +40,6 @@ This module provides internal tools for the NixOS configuration.
   configuration-tools = haumea.lib.load {
     src = ./configuration;
     inputs = {
-      inherit self;
       inherit lib;
       inherit haumea;
       inherit inputs;

@@ -60,7 +60,7 @@
     available-systems = ["aarch64-darwin" "x86_64-linux"];
 
     internal = import ./_internal {
-      inherit self inputs available-systems;
+      inherit inputs available-systems;
     };
   in
     internal.configuration-tools.mkConfigurations {
