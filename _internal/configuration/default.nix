@@ -6,7 +6,6 @@ different environments and systems.
 */
 {
   lib,
-  haumea,
   inputs,
   profile-tools,
   common-tools,
