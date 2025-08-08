@@ -22,7 +22,7 @@ different environments and systems.
     _ = assert validation-tools.validate (lib.elem system available-systems) "System '${system}' is not supported. Available: ${lib.concatStringsSep ", " available-systems}";
 
     genSpecialArgs = system: inputs // {
-      inherit profile common-tools validation-tools common-tools;
+      inherit profile common-tools validation-tools;
 
       pkgs-unstable = common-tools.pkgsForSystem {
         inherit system;
@@ -41,9 +41,9 @@ different environments and systems.
   in {
   };
 
-  mkConfigurations = profiles: let in {
+  mkConfigurations = profiles: {
     processedProfiles = processProfiles profiles;
   };
-{
+in {
   inherit mkConfigurations;
 }
