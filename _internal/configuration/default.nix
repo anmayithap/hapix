@@ -14,12 +14,8 @@ different environments and systems.
 }: let
   processProfiles = profiles: lib.map (profileData: profile-tools.mkProfile profileData) profiles;
 
-  mkConfiguration = {
-    profile,
-  }: let
+  mkConfiguration = profile: let
     inherit (profile) system;
-
-    _ = validation-tools.validate (lib.elem system available-systems) "System '${system}' is not supported. Available: ${lib.concatStringsSep ", " available-systems}";
 
     genSpecialArgs = system: inputs // {
       inherit profile common-tools validation-tools;
@@ -38,13 +34,13 @@ different environments and systems.
     args = {
       inherit inputs lib profile common-tools validation-tools genSpecialArgs;
     };
-  in {
+  in assert validation-tools.validate (lib.elem system available-systems) "System '${system}' is not supported. Available: ${lib.concatStringsSep ", " available-systems}"; {
   };
 
   mkConfigurations = profiles: let
     processedProfiles = processProfiles profiles;
 
-    processedConfigurations = lib.map (profile: mkConfiguration {inherit profile;}) processedProfiles;
+    processedConfigurations = lib.map (profile: mkConfiguration profile) processedProfiles;
   in {
     inherit processedConfigurations;
   };
