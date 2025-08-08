@@ -20,7 +20,6 @@ This module provides internal tools for the NixOS configuration.
 
   # Evaluate profile configurations tools.
   profile-tools = import ./profile {
-    inherit lib;
     inherit common-tools;
   };
 
