@@ -43,6 +43,8 @@ different environments and systems.
 
   mkConfigurations = profiles: {
     processedProfiles = processProfiles profiles;
+
+    processedConfigurations = lib.map (profile: mkConfiguration profile) processedProfiles;
   };
 in {
   inherit mkConfigurations;
