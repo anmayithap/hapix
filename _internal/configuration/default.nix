@@ -43,8 +43,6 @@ different environments and systems.
   mkConfigurations = profiles: let
     processedProfiles = processProfiles profiles;
 
-    processedConfigurations = lib.map (profile: mkConfiguration profile) processedProfiles;
-
     allSystemsCombined = lib.foldl' (acc: config: acc // config.systemConfiguration) {} processedConfigurations;
 
     nixosSystems = lib.filterAttrs (systemName: _: common-tools.isLinuxBySystemName systemName) allSystemsCombined;
@@ -57,7 +55,7 @@ different environments and systems.
     allSystemValues = nixosSystemValues ++ darwinSystemValues;
 
     forAllSystems = func: (lib.genAttrs allSystemNames func);
-  in {
+
     debugAttrs = {
       inherit
         nixosSystems
@@ -76,6 +74,12 @@ different environments and systems.
     );
 
     packages = forAllSystems (system: allSystems.${system}.packages or { });
+  in {
+    inherit
+    debugAttrs
+    nixosConfigurations
+    darwinConfigurations
+    packages;
   };
 in {
   inherit mkConfigurations;
