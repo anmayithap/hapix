@@ -44,8 +44,36 @@ different environments and systems.
     processedProfiles = processProfiles profiles;
 
     processedConfigurations = lib.map (profile: mkConfiguration profile) processedProfiles;
+
+    allSystemsCombined = lib.foldl' (acc: config: acc // config.systemConfiguration) {} processedConfigurations;
+
+    nixosSystems = lib.filterAttrs (systemName: _: common-tools.isLinuxBySystemName systemName) allSystemsCombined;
+    darwinSystems = lib.filterAttrs (systemName: _: common-tools.isDarwinBySystemName systemName) allSystemsCombined;
+
+    allSystems = nixosSystems // darwinSystems;
+    allSystemNames = builtins.attrNames allSystems;
+    nixosSystemValues = builtins.attrValues nixosSystems;
+    darwinSystemValues = builtins.attrValues darwinSystems;
+    allSystemValues = nixosSystemValues ++ darwinSystemValues;
   in {
-    inherit processedConfigurations;
+    debugAttrs = {
+      inherit
+        nixosSystems
+        darwinSystems
+        allSystems
+        allSystemNames
+        ;
+    };
+
+    nixosConfigurations = lib.attrsets.mergeAttrsList (
+      map (it: it.nixosConfigurations or { }) nixosSystemValues
+    );
+
+    darwinConfigurations = lib.attrsets.mergeAttrsList (
+      map (it: it.darwinConfigurations or { }) darwinSystemValues
+    );
+
+    packages = forAllSystems (system: allSystems.${system}.packages or { });
   };
 in {
   inherit mkConfigurations;
