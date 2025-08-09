@@ -55,6 +55,8 @@ different environments and systems.
     nixosSystemValues = builtins.attrValues nixosSystems;
     darwinSystemValues = builtins.attrValues darwinSystems;
     allSystemValues = nixosSystemValues ++ darwinSystemValues;
+
+    forAllSystems = func: (lib.genAttrs allSystemNames func);
   in {
     debugAttrs = {
       inherit
