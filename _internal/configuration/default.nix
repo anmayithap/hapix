@@ -17,6 +17,8 @@ different environments and systems.
   mkConfiguration = profile: let
     inherit (profile) system;
 
+    systemCheck = validation-tools.validate (lib.elem system available-systems) "System '${system}' is not supported. Available: ${lib.concatStringsSep ", " available-systems}";
+
     genSpecialArgs = system: inputs // {
       inherit profile common-tools validation-tools;
 
@@ -34,7 +36,8 @@ different environments and systems.
     args = {
       inherit inputs lib profile common-tools validation-tools genSpecialArgs;
     };
-  in assert validation-tools.validate (lib.elem system available-systems) "System '${system}' is not supported. Available: ${lib.concatStringsSep ", " available-systems}"; {
+  in assert systemCheck; {
+    systemConfiguration = {${system} = import ./${system} (args // {inherit system;});};
   };
 
   mkConfigurations = profiles: let
