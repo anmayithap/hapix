@@ -62,17 +62,17 @@
     internal = import ./_internal {
       inherit inputs available-systems;
     };
+
+    profiles = [
+      {
+        system = "aarch64-darwin";
+        hostname = "maple";
+      }
+      {
+        system = "x86_64-linux";
+        hostname = "nixos";
+      }
+    ];
   in
-    internal.configuration-tools.mkConfigurations {
-      profiles = [
-        {
-          system = "aarch64-darwin";
-          hostname = "maple";
-        }
-        {
-          system = "x86_64-linux";
-          hostname = "nixos";
-        }
-      ];
-    };
+    internal.configuration-tools.mkConfigurations profiles;
 }
