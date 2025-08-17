@@ -23,7 +23,6 @@
     };
 
     # ===== flake tools =====
-
     haumea = {
       url = "github:nix-community/haumea/v0.2.2";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,7 +45,6 @@
     };
 
     # =====  My own repositories =====
-
     secrets = {
       url = "git+ssh://git@github.com/anmayithap/nix-secrets.git";
       flake = false;
