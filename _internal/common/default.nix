@@ -24,5 +24,5 @@ Common tools for the entire project.
 in {
   inherit (system-detection-tools) isDarwinBySystemName isLinuxBySystemName;
   inherit (system-apply-tools) pkgsForSystem;
-  inherit (path-tools) scanPaths;
+  inherit (path-tools) scanPaths relativeToRoot;
 }
