@@ -17,7 +17,7 @@ Functions:
   constants,
   common-tools,
 }: let
-  inherit (common-tools) isDarwinBySystemName isLinuxBySystemName;
+  inherit (common-tools) isDarwinBySystemName;
 
   mkHomeDirectory = {
     username,
@@ -33,19 +33,17 @@ Functions:
     ...
   } @ args: let
     isDarwin = isDarwinBySystemName system;
-    isLinux = isLinuxBySystemName system;
 
     username = args.username or constants.username;
     fullname = args.fullname or constants.fullname;
     email = args.email or constants.email;
-  in
-    {
-      inherit system hostname username fullname email;
+  in {
+    inherit system hostname username fullname email;
 
-      homeDirectory = mkHomeDirectory {
-        inherit username isDarwin;
-      };
+    homeDirectory = mkHomeDirectory {
+      inherit username isDarwin;
     };
+  };
 in {
   inherit mkProfile;
 }

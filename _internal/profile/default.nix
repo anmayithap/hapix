@@ -1,9 +1,7 @@
 /*
 This module provides a function to create profiles.
 */
-{
-  common-tools,
-}: let
+{common-tools}: let
   constants = import ./constants.nix;
 
   factory = import ./factory.nix {

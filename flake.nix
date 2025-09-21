@@ -4,7 +4,6 @@
   inputs = {
     # ===== NixOS =====
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs/a0c402ee27d9f80358fc6ea30b075098a72a3a11";
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
@@ -52,10 +51,7 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    ...
-  }: let
+  outputs = inputs @ {self, ...}: let
     available-systems = ["aarch64-darwin" "x86_64-linux"];
 
     internal = import ./_internal {
