@@ -1,9 +1,7 @@
 /*
 Common tools for the entire project.
 */
-{
-  lib,
-}: let
+{lib}: let
   # Evaluate system detection tools.
   # This module provide function to detect current system.
   system-detection-tools = import ./system-detection.nix {

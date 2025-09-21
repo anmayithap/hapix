@@ -6,9 +6,7 @@ Functions:
 1. pkgsForSystem: system -> pkgs
   Fetch all packages from Nixpkgs for given system.
 */
-{
-  lib,
-}: let
+{lib}: let
   pkgsForSystem = {
     system,
     source,
