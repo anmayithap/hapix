@@ -11,14 +11,7 @@
     else [];
 in {
   programs.ssh = {
-    enable = lib.mkDefault true;
-    forwardAgent = lib.mkDefault false;
-    addKeysToAgent = lib.mkDefault "yes";
-    compression = lib.mkDefault true;
-    serverAliveInterval = lib.mkDefault 60;
-    serverAliveCountMax = lib.mkDefault 3;
-    hashKnownHosts = lib.mkDefault true;
-    controlMaster = lib.mkDefault "auto";
+    enable = true;
     extraOptionOverrides = {
       Ciphers = "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr";
       KexAlgorithms = "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
@@ -30,12 +23,21 @@ in {
       colimaSshConfig;
 
     matchBlocks = {
+      "*" = {
+        controlMaster = lib.mkForce "auto";
+        hashKnownHosts = lib.mkForce true;
+        serverAliveCountMax = lib.mkForce 3;
+        serverAliveInterval = lib.mkForce 60;
+        compression = lib.mkForce true;
+        addKeysToAgent = lib.mkForce "yes";
+        forwardAgent = lib.mkForce false;
+      };
       "gs-proxy01 cs-prod-app-server-1 172.21.78.10 lfc:200* lfc:stage* gis:prod gitlab.infra.tatneftm.ru lfc:dev" = {
         user = "r.torbeev";
         identityFile = "${config.home.homeDirectory}/.ssh/tatitneft";
         identitiesOnly = true;
       };
-      "github.com kulibin" = {
+      "github.com" = {
         identityFile = "${config.home.homeDirectory}/.ssh/maple";
         identitiesOnly = true;
       };
@@ -68,9 +70,9 @@ in {
       "lfc:dev" = {
         hostname = "192.168.100.16";
       };
-      "kulibin" = {
-        hostname = "kulibin-crm.ru";
-        user = "ruslan";
+      "vpn" = {
+        hostname = "5.129.233.150";
+        user = "rusel";
       };
       "lfc:200:fwd lfc:stage:fwd" = {
         hostname = "172.21.78.10";
