@@ -8,7 +8,7 @@ Functions:
       and `message`, which is an optional string describing what kind of value should be passed to the predicate.
    - Returns either an assertion (if the predicate fails) or null (if it passes).
 */
-{lib}: let
+{lib, ...}: let
   defaultValidator = pred: message:
     lib.asserts.assertMsg pred message;
 in {

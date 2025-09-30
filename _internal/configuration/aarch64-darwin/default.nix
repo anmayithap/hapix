@@ -1,4 +1,8 @@
-{lib, inputs, ...}@args: let
+{
+  lib,
+  inputs,
+  ...
+} @ args: let
   inherit (inputs) haumea;
 
   darwinFactory = import ../darwin_factory.nix;
@@ -15,9 +19,10 @@
       map (it: it.darwinConfigurations or {}) dataWithoutPaths
     );
 
-    packages = lib.attrsets.mergeAttrsList (map (it: it.packages or { }) dataWithoutPaths);
+    packages = lib.attrsets.mergeAttrsList (map (it: it.packages or {}) dataWithoutPaths);
   };
 in
-outputs // {
-  inherit data;
-}
+  outputs
+  // {
+    inherit data;
+  }

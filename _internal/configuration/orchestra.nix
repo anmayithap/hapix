@@ -25,12 +25,11 @@ Functions:
     isDarwin = common-tools.isDarwinBySystemName profile.system;
     isLinux = common-tools.isLinuxBySystemName profile.system;
 
-    genSpecialArgs =
-      system:
+    genSpecialArgs = system:
       inputs
       // {
         inherit profile common-tools validation-tools pkgs-stable pkgs-unstable;
-    };
+      };
   in {
     darwinSystem =
       if isDarwin
@@ -101,10 +100,12 @@ Functions:
       lib.mapAttrs
       (hostname: hostConfig: hostConfig.${systemTypeName})
       filteredConfigurations;
-  in {
-    nixosConfigurations = extractSystemType "nixosSystem";
-    darwinConfigurations = extractSystemType "darwinSystem";
-  } // {
+  in
+    {
+      nixosConfigurations = extractSystemType "nixosSystem";
+      darwinConfigurations = extractSystemType "darwinSystem";
+    }
+    // {
       checks = common-tools.forAllSystems (
         system: pkgs: {
           pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {

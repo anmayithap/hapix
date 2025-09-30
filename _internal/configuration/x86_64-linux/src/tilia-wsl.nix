@@ -6,8 +6,6 @@
   genSpecialArgs,
   system,
   ...
-}@args: let
-
+} @ args: let
 in {
-
 }

@@ -19,26 +19,29 @@ different environments and systems.
 
     systemCheck = validation-tools.validate (lib.elem system available-systems) "System '${system}' is not supported. Available: ${lib.concatStringsSep ", " available-systems}";
 
-    genSpecialArgs = system: inputs // {
-      inherit profile common-tools validation-tools;
+    genSpecialArgs = system:
+      inputs
+      // {
+        inherit profile common-tools validation-tools;
 
-      pkgs-unstable = common-tools.pkgsForSystem {
-        inherit system;
-        source = inputs.nixpkgs-unstable;
-      };
+        pkgs-unstable = common-tools.pkgsForSystem {
+          inherit system;
+          source = inputs.nixpkgs-unstable;
+        };
 
-      pkgs-stable = common-tools.pkgsForSystem {
-        inherit system;
-        source = inputs.nixpkgs-stable;
+        pkgs-stable = common-tools.pkgsForSystem {
+          inherit system;
+          source = inputs.nixpkgs-stable;
+        };
       };
-    };
 
     args = {
       inherit inputs lib profile common-tools validation-tools genSpecialArgs;
     };
-  in assert systemCheck; {
-    systemConfiguration = {${system} = import ./${system} (args // {inherit system;});};
-  };
+  in
+    assert systemCheck; {
+      systemConfiguration = {${system} = import ./${system} (args // {inherit system;});};
+    };
 
   mkConfigurations = profiles: let
     processedProfiles = processProfiles profiles;
@@ -68,20 +71,21 @@ different environments and systems.
     };
 
     nixosConfigurations = lib.attrsets.mergeAttrsList (
-      map (it: it.nixosConfigurations or { }) nixosSystemValues
+      map (it: it.nixosConfigurations or {}) nixosSystemValues
     );
 
     darwinConfigurations = lib.attrsets.mergeAttrsList (
-      map (it: it.darwinConfigurations or { }) darwinSystemValues
+      map (it: it.darwinConfigurations or {}) darwinSystemValues
     );
 
-    packages = forAllSystems (system: allSystems.${system}.packages or { });
+    packages = forAllSystems (system: allSystems.${system}.packages or {});
   in {
     inherit
-    debugAttrs
-    nixosConfigurations
-    darwinConfigurations
-    packages;
+      debugAttrs
+      nixosConfigurations
+      darwinConfigurations
+      packages
+      ;
   };
 in {
   inherit mkConfigurations;

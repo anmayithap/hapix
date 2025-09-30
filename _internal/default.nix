@@ -10,12 +10,12 @@ This module provides internal tools for the NixOS configuration.
 
   # Evaluate validation tools.
   validation-tools = import ./validators.nix {
-    inherit lib;
+    inherit lib inputs available-systems;
   };
 
   # Evaluate common configuration tools.
   common-tools = import ./common {
-    inherit lib;
+    inherit lib inputs available-systems;
   };
 
   # Evaluate profile configurations tools.

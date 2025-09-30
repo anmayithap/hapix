@@ -1,73 +1,106 @@
 {
-  description = "Anmayithap's nix configuration for both NixOS & macOS";
+  description = "Anmayithap's unified NixOS and macOS configuration";
 
+  # =========================================================================
+  # == INPUTS: All external dependencies for this project are declared here.
+  # This is the single source of truth for all external code.
+  # =========================================================================
   inputs = {
-    # ===== NixOS =====
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # -----------------------------------------------------------------------
+    # ## Nixpkgs Sources
+    # -----------------------------------------------------------------------
 
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    # `nixpkgs` is the primary source for packages and NixOS modules.
+    # We pin it to `nixos-unstable` to get the latest software versions.
+    # All other inputs that require `nixpkgs` will `follow` this one to
+    # ensure perfect consistency across the entire system.
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # ===== MacOS =====
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nix-darwin = {
-      url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
-    };
+    # `nixpkgs-stable` provides an additional package set from the latest
+    # stable NixOS release. This is useful for specific applications
+    # that might be broken on `unstable` or for server environments where
+    # stability is a higher priority than new features.
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05"; # Note: Update this as new versions are released.
 
-    # ===== home-manager =====
+    # -----------------------------------------------------------------------
+    # ## Core System Tooling
+    # -----------------------------------------------------------------------
+
+    # `home-manager` allows for declarative management of the user environment
+    # (dotfiles, user-specific packages, user services, etc.).
     home-manager = {
-      url = "github:nix-community/home-manager/master";
-
+      url = "github:nix-community/home-manager/release-25.05";
+      # This `follows` directive is crucial. It forces home-manager to use the
+      # exact same version of `nixpkgs` as our main system, which prevents
+      # a wide range of common compatibility issues.
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # ===== flake tools =====
-    haumea = {
-      url = "github:nix-community/haumea/v0.2.2";
+    # `nix-darwin` provides the necessary modules to declaratively manage macOS.
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      # Just like home-manager, it must be built with the same `nixpkgs`.
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # ===== secrets management =====
+    # -----------------------------------------------------------------------
+    # ## Flake Helper Utilities
+    # -----------------------------------------------------------------------
+
+    # `flake-parts` helps structure the `outputs` of a flake, allowing us to
+    # split the configuration into smaller, more manageable files.
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    # `git-hooks-nix` provides a framework for running linters and
+    # formatters as Git pre-commit hooks, ensuring code quality and consistency.
+    git-hooks-nix = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    import-tree = {
+      url = "github:vic/import-tree";
+    };
+
+    # -----------------------------------------------------------------------
+    # ## Secrets Management
+    # -----------------------------------------------------------------------
+
+    # `agenix` is a simple and effective utility for managing secrets
+    # using age encryption.
     agenix = {
-      url = "github:ryantm/agenix/531beac616433bac6f9e2a19feb8e99a22a66baf";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        darwin.follows = "nix-darwin";
-        home-manager.follows = "home-manager";
-      };
-    };
-
-    # ===== development tools =====
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
+      # Pinning to a specific commit hash provides maximum reproducibility.
+      url = "github:ryantm/agenix";
+      # `agenix` only depends on `nixpkgs`, so that's the only follow we need.
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # =====  My own repositories =====
+    # A private Git repository containing encrypted secrets.
     secrets = {
       url = "git+ssh://git@github.com/anmayithap/nix-secrets.git";
+      # The `flake = false;` attribute is essential. It tells Nix that this
+      # repository is just a collection of files and not a Nix Flake,
+      # so it shouldn't try to evaluate it.
+      flake = false;
+    };
+
+    # -----------------------------------------------------------------------
+    # ## Self non-flakes
+    # -----------------------------------------------------------------------
+    # A sequence of system names that supported by this flake.
+    systems = {
+      url = "path:./systems.nix";
       flake = false;
     };
   };
 
-  outputs = inputs @ {self, ...}: let
-    available-systems = ["aarch64-darwin" "x86_64-linux"];
-
-    internal = import ./_internal {
-      inherit inputs available-systems;
-    };
-
-    profiles = [
-      {
-        system = "aarch64-darwin";
-        hostname = "maple";
-      }
-      {
-        system = "x86_64-linux";
-        hostname = "nixos";
-      }
-    ];
-  in
-    internal.configuration-tools.mkConfigurations profiles;
+  # =========================================================================
+  # == OUTPUTS: The results produced by this flake.
+  # =========================================================================
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {
+      inherit inputs;
+    } (
+      inputs.import-tree ./modules
+    );
 }
