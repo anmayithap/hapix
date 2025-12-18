@@ -12,7 +12,7 @@
         inputs.self.modules.nixos.${name}
         {
           nixpkgs.hostPlatform = lib.mkDefault system;
-          system.stateVersion = "25.05";
+          system.stateVersion = "25.11";
         }
       ];
     };

@@ -20,7 +20,7 @@
     # stable NixOS release. This is useful for specific applications
     # that might be broken on `unstable` or for server environments where
     # stability is a higher priority than new features.
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05"; # Note: Update this as new versions are released.
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11"; # Note: Update this as new versions are released.
 
     # -----------------------------------------------------------------------
     # ## Core System Tooling
