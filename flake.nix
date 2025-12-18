@@ -29,7 +29,7 @@
     # `home-manager` allows for declarative management of the user environment
     # (dotfiles, user-specific packages, user services, etc.).
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/master";
       # This `follows` directive is crucial. It forces home-manager to use the
       # exact same version of `nixpkgs` as our main system, which prevents
       # a wide range of common compatibility issues.
@@ -40,6 +40,39 @@
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       # Just like home-manager, it must be built with the same `nixpkgs`.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-homebrew = {
+      url = "github:zhaofengli/nix-homebrew";
+    };
+
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+
+    # -----------------------------------------------------------------------
+    # ## Development Tooling
+    # -----------------------------------------------------------------------
+
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -62,6 +95,11 @@
       url = "github:vic/import-tree";
     };
 
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # -----------------------------------------------------------------------
     # ## Secrets Management
     # -----------------------------------------------------------------------
@@ -77,7 +115,7 @@
 
     # A private Git repository containing encrypted secrets.
     secrets = {
-      url = "git+ssh://git@github.com/anmayithap/nix-secrets.git";
+      url = "git+ssh://git@github.com/anmayithap/hapix-secret.git";
       # The `flake = false;` attribute is essential. It tells Nix that this
       # repository is just a collection of files and not a Nix Flake,
       # so it shouldn't try to evaluate it.
@@ -100,7 +138,5 @@
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake {
       inherit inputs;
-    } (
-      inputs.import-tree ./modules
-    );
+    } (inputs.import-tree ./modules);
 }
