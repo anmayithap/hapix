@@ -34,7 +34,7 @@
   mkLinuxWSL = mkLinuxDecorator "x86_64-linux" "wsl";
   mkLinux = mkLinuxDecorator "x86_64-linux" "nixos";
 
-  mkDarwin = mkDarwinDecorator "x86_64-darwin" "darwin";
+  mkDarwin = mkDarwinDecorator "aarch64-darwin" "darwin";
 in {
   flake = {
     lib = {

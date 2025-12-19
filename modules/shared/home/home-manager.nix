@@ -1,7 +1,7 @@
 _: let
   home-manager = {lib, ...}: {
     home-manager = {
-      useGlobalPkgs = lib.mkDefault true;
+      useGlobalPkgs = lib.mkDefault false;
       useUserPackages = lib.mkDefault true;
       backupFileExtension = lib.mkDefault "home-manager.backup";
       verbose = lib.mkDefault true;
