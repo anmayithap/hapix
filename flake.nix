@@ -100,6 +100,11 @@
       url = "github:vic/import-tree";
     };
 
+    # `flake-root` module for finding your way to the project root directory
+    flake-root = {
+      url = "github:srid/flake-root";
+    };
+
     # -----------------------------------------------------------------------
     # ## Secrets Management
     # -----------------------------------------------------------------------
