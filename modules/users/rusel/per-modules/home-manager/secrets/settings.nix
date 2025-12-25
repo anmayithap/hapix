@@ -1,7 +1,7 @@
 _: {
   flake.modules.homeManager.rusel = {config, ...}: let
     inherit (config.user-meta) homeDirectory;
-    baseDirectory = homeDirectory + "/.agenix";
+    baseDirectory = homeDirectory + "/.config/agenix";
   in {
     age = {
       secretsDir = baseDirectory + "/secrets";

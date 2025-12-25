@@ -14,6 +14,9 @@
         fullname = lib.mkOption {
           type = with lib.types; str;
         };
+        email = lib.mkOption {
+          type = with lib.types; str;
+        };
         homeDirectory = lib.mkOption {
           type = with lib.types; str;
         };

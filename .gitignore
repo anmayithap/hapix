@@ -1,5 +1,7 @@
 result
-.pre-commit-config.yaml
 .DS_Store
 .direnv
 .vscode
+.envrc
+.env
+.pre-commit-config.yaml

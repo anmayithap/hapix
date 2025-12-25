@@ -5,10 +5,16 @@
   in {
     age = {
       secrets = {
-        "ssh_tatitneft" = {
-          file = "${secrets}/ssh_tatitneft.age";
+        "tat.ssh" = {
+          file = "${secrets}/tat.ssh.age";
           mode = "0600";
           path = "${homeDirectory}/.ssh/tatitneft";
+          symlink = true;
+        };
+        "tat.ssh.config" = {
+          file = "${secrets}/tat.ssh.config.age";
+          mode = "0600";
+          path = "${homeDirectory}/.ssh/ssh_tatitneft_config";
           symlink = true;
         };
       };

@@ -8,7 +8,7 @@
         "maple.ovpn" = {
           file = "${secrets}/maple.ovpn.age";
           mode = "0600";
-          path = "${homeDirectory}/openvpn/maple.ovpn";
+          path = "${homeDirectory}/vpn/ovpn/maple.ovpn";
           symlink = true;
         };
       };

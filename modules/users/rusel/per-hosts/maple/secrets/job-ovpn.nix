@@ -5,10 +5,16 @@
   in {
     age = {
       secrets = {
-        "tat.maple.ovpn" = {
-          file = "${secrets}/tat.maple.ovpn.age";
+        "tat.ovpn" = {
+          file = "${secrets}/tat.ovpn.age";
           mode = "0600";
-          path = "${homeDirectory}/openvpn/tat.maple.ovpn";
+          path = "${homeDirectory}/vpn/ovpn/tat.ovpn";
+          symlink = true;
+        };
+        "tat.ovpn.auth" = {
+          file = "${secrets}/tat.ovpn.auth.age";
+          mode = "0600";
+          path = "${homeDirectory}/vpn/ovpn/tat.ovpn.auth.txt";
           symlink = true;
         };
       };

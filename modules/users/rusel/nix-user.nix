@@ -1,10 +1,4 @@
 {inputs, ...}: let
-  flake.modules.darwin.rusel.imports = [
-    inputs.self.modules.darwin.user-meta
-
-    user
-  ];
-
   user = {
     lib,
     config,
@@ -22,5 +16,9 @@
     };
   };
 in {
-  inherit flake;
+  flake.modules.darwin.rusel.imports = [
+    inputs.self.modules.darwin.user-meta
+
+    user
+  ];
 }

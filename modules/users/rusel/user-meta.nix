@@ -9,6 +9,7 @@ _: let
       name = lib.mkDefault "Ruslan";
       surname = lib.mkDefault "Torbeev";
       fullname = lib.mkDefault "Ruslan Torbeev";
+      email = lib.mkDefault "ruslan.torbeev@yandex.ru";
       homeDirectory = lib.mkDefault (
         if pkgs.stdenvNoCC.isDarwin
         then "/Users/rusel"

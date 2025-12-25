@@ -8,7 +8,7 @@ _: let
   in {
     homebrew.caskArgs = {
       appdir = lib.mkForce "${homeDirectory}/Applications";
-      require_sha = lib.mkForce true;
+      require_sha = lib.mkForce false;
     };
   };
 in {
