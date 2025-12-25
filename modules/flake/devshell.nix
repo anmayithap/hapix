@@ -12,6 +12,7 @@
   perSystem = {
     config,
     pkgs,
+    lib,
     ...
   }: {
     # -----------------------------------------------------------------------
@@ -19,15 +20,6 @@
     # -----------------------------------------------------------------------
     devshells.default = {
       name = "hapix";
-
-      # ### Environment Variables
-      # Setting variables here ensures they are available in shell.
-      env = [
-        {
-          name = "FLAKE";
-          value = config.flake-root;
-        }
-      ];
 
       # ### Essential Packages
       packages = [
@@ -62,7 +54,7 @@
           name = "fmt";
           help = "Format all files in the repository";
           category = "utils";
-          command = config.treefmt.build.wrapper;
+          command = "${config.treefmt.build.wrapper}";
         }
       ];
 
@@ -72,6 +64,11 @@
       devshell.startup = {
         greet.text = ''
           echo "Welcome to the Hapix DevShell"
+        '';
+
+        set-flake-root.text = ''
+          FLAKE="''$(${lib.getExe config.flake-root.package})"
+          export FLAKE
         '';
 
         pre-commit.text = config.pre-commit.installationScript;
