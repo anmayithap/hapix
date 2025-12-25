@@ -30,28 +30,27 @@
     # (dotfiles, user-specific packages, user services, etc.).
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      # This `follows` directive is crucial. It forces home-manager to use the
-      # exact same version of `nixpkgs` as our main system, which prevents
-      # a wide range of common compatibility issues.
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # `nix-darwin` provides the necessary modules to declaratively manage macOS.
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
-      # Just like home-manager, it must be built with the same `nixpkgs`.
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # `nixos-wsl` provides the necessary modules to declaratively manage WSL.
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # `nix-homebrew` manages Homebrew installations on MacOs using `nix-darwin`.
     nix-homebrew = {
       url = "github:zhaofengli/nix-homebrew";
     };
 
+    # For declarative tap management.
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
@@ -76,6 +75,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # -----------------------------------------------------------------------
     # ## Flake Helper Utilities
     # -----------------------------------------------------------------------
@@ -91,13 +95,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # `import-tree` some dendritic library which recursively imports nix modules from a directory.
     import-tree = {
       url = "github:vic/import-tree";
-    };
-
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # -----------------------------------------------------------------------
