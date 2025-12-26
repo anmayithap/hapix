@@ -9,7 +9,7 @@ let
   # -----------------------------------------------------------------------
   # ## Nix Logic Definition
   # -----------------------------------------------------------------------
-  nix-settings = {lib}: {
+  nix-settings = {lib, ...}: {
     nix = {
       # ### Store Optimization
       # Automatically detect and hardlink identical files in the Nix store.
