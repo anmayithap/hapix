@@ -1,23 +1,32 @@
+# =========================================================================
+# == SHARED LIBRARY: Host Discovery (hosts-by-system)
+# This module provides utility functions to inspect the flake's own
+# configurations. It allows for the dynamic discovery of hosts based on
+# their target architecture, enabling cross-platform automation and
+# better visibility into the flake's infrastructure.
+# =========================================================================
 {
   inputs,
   lib,
   ...
 }: let
+  # -----------------------------------------------------------------------
+  # ## Internal Helpers
+  # -----------------------------------------------------------------------
   /**
-  * @description Checks if a system string is a Darwin (macOS) system.
-  * @param {string} system The system identifier string (e.g., "x86_64-linux" or "aarch64-darwin").
-  * @return {boolean} `true` if the system is Darwin, otherwise `false`.
+  * _isDarwin
+  *
+  * Identifies if a system string belongs to the macOS family.
+  * Logic: Checks if the system identifier ends with "darwin".
   */
   _isDarwin = system: lib.hasSuffix "darwin" system;
 
   /**
-  * @description Internal helper. Selects the appropriate configuration set
-  * (`nixosConfigurations` or `darwinConfigurations`) from the flake's outputs
-  * based on the system type. This lets `hostsBySystem` search only in the
-  * relevant location.
-  * @param {string} system The target system identifier.
-  * @param {object} self The current flake's self object (`inputs.self`).
-  * @return {attrset} Either `self.darwinConfigurations` or `self.nixosConfigurations`.
+  * _systemPredicate
+  *
+  * Acts as a router to select the correct configuration set from the
+  * flake's outputs. It ensures that we only search for hosts in the
+  * relevant attribute set (nixosConfigurations vs darwinConfigurations).
   */
   _systemPredicate = system: self:
     if _isDarwin system
@@ -25,51 +34,46 @@
     else self.nixosConfigurations;
 in {
   flake = {
-    /**
-    * @description A library of helper functions for this flake.
-    */
+    # -----------------------------------------------------------------------
+    # ## Public Library Functions
+    # -----------------------------------------------------------------------
     lib = {
       /**
-      * @description A utility to find all hosts (NixOS or Darwin configurations)
-      * that are built for a specific system architecture.
+      * hostsBySystem
       *
-      * It scans the flake's `nixosConfigurations` and `darwinConfigurations` and returns
-      * a list of host names whose `config.nixpkgs.hostPlatform.system`
-      * matches the provided argument.
+      * A powerful utility to retrieve a list of hostnames matching a
+      * specific architecture.
       *
-      * @param {string} system The system identifier string to find hosts for
-      * (e.g., "x86_64-linux" or "aarch64-darwin").
+      * # How it works:
+      * 1. It identifies the platform type (Linux/Darwin).
+      * 2. It iterates over the corresponding configuration set.
+      * 3. It inspects the `nixpkgs.hostPlatform.system` of each host.
+      * 4. It returns the keys (names) of matching hosts.
       *
-      * @return {list-of-strings} A list of host names that match the specified system.
+      * # Inputs:
+      * `system` (string): The architecture string (e.g., "aarch64-darwin").
       *
-      * @example
-      *   # Assuming you have a flake structure like this:
-      *   # nixosConfigurations = {
-      *   #   server1 = nixpkgs.lib.nixosSystem { system = "x86_64-linux"; ... };
-      *   #   server2 = nixpkgs.lib.nixosSystem { system = "aarch64-linux"; ... };
-      *   # };
-      *   # darwinConfigurations = {
-      *   #   my-mac = nixpkgs.lib.darwinSystem { system = "aarch64-darwin"; ... };
-      *   # };
-      *
-      *   self.lib.hostsBySystem "x86_64-linux"
-      *   # => [ "server1" ]
-      *
+      * # Example Usage:
       *   self.lib.hostsBySystem "aarch64-darwin"
-      *   # => [ "my-mac" ]
+      *   => [ "maple" ]
       */
       hostsBySystem = system: let
-        # Get access to the current flake's outputs.
+        # Access the current flake's outputs (self).
         inherit (inputs) self;
 
-        # Determine where to look for hosts: in `nixosConfigurations` or `darwinConfigurations`.
+        # Determine the search scope based on the architecture type.
         where = _systemPredicate system self;
 
-        # Filter the attributes (hosts) in the selected set, keeping only those
-        # whose system matches the requested one.
-        _system = lib.filterAttrs (_: value: value.config.nixpkgs.hostPlatform.system == system) where;
+        # Filter the hosts by comparing their internal platform
+        # configuration with the requested system string.
+        _system =
+          lib.filterAttrs (
+            _: value:
+              value.config.nixpkgs.hostPlatform.system == system
+          )
+          where;
       in
-        # Return only the names (keys) of the filtered hosts.
+        # Return the list of hostnames (keys).
         lib.attrNames _system;
     };
   };
