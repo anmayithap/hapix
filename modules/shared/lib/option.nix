@@ -1,36 +1,57 @@
+# =========================================================================
+# == SHARED MODULE: Flake Library Namespace (Schema)
+# This module establishes a centralized, structured namespace for custom
+# utility functions and constants. By defining 'flake.lib' as an option,
+# it allows helpers defined in our library to be accessed via the 'config'
+# argument in any module, promoting code reuse and modularity.
+# =========================================================================
 {lib, ...}: {
   options = {
+    # -----------------------------------------------------------------------
+    # ## flake.lib Option Definition
+    # -----------------------------------------------------------------------
+    # We define a common namespace to expose utility functions and values.
+    # While Nix Flakes have a top-level 'lib' output, exposing it through
+    # the module system (via config.flake.lib) allows for more dynamic
+    # integration with NixOS/Darwin options.
+
     flake.lib = lib.mkOption {
-      # The type of the option: an attribute set where values can be of any type.
+      # ### Type Definition
+      # We use 'attrsOf unspecified' to allow this namespace to store
+      # any Nix value—be it a simple string, a complex attribute set,
+      # or a high-level function (lambda).
       type = lib.types.attrsOf lib.types.unspecified;
 
-      # The default value: an empty attribute set.
+      # ### Default State
+      # Initialized as an empty set.
       default = {};
 
-      # A user-friendly text representation of the default value for documentation.
+      # A safe, literal representation for generated documentation.
       defaultText = lib.literalExpression "''{}''";
 
-      # The primary description of the option. This appears in generated documentation.
+      # ### Documentation
+      # This metadata is consumed by nix-darwin/NixOS manual generators.
       description = ''
         Defines a common namespace, `flake.lib`, for exposing custom utility
-        functions and values throughout a NixOS configuration.
+        functions and values throughout the configuration.
 
         This provides a centralized location to store and access helper functions,
-        making them easily reusable across different modules.
+        making them easily reusable across different modules without needing
+        to pass 'inputs' or 'self' manually into every function call.
       '';
 
-      # A practical example of how to use the option.
+      # ### Practical Usage Example
+      # Demonstrates the "Define once, use everywhere" pattern.
       example = lib.literalExpression ''
-        # In your configuration.nix or a custom module:
+        # Defining a helper in a library module:
         flake.lib = {
           mkGreeting = name: "Hello, ''${name}!";
           constants.projectRoot = "/srv/my-project";
         };
 
-        # Elsewhere in your configuration:
+        # Consuming the helper in a service module:
         # { config, ... }: {
         #   environment.motd = config.flake.lib.mkGreeting "NixOS User";
-        #   services.my-service.path = config.flake.lib.constants.projectRoot;
         # }
       '';
     };
