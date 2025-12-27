@@ -51,6 +51,33 @@
           '';
         }
         {
+          name = "nhsw";
+          help = "Nix Helper Switch (wrapped nh switch) for current flake";
+          category = "system";
+          command =
+            if pkgs.stdenvNoCC.isDarwin
+            then ''${pkgs.nh}/bin/nh darwin switch''
+            else ''${pkgs.nh}/bin/nh os switch'';
+        }
+        {
+          name = "nhc";
+          help = "Nix Helper Clean (wrapped nh clean) for current flake";
+          category = "system";
+          command = ''${pkgs.nh}/bin/nh clean all'';
+        }
+        {
+          name = "nhca";
+          help = "Nix Helper Clean Aggressive (wrapped nh clean) for current flake";
+          category = "system";
+          command = ''${pkgs.nh}/bin/nh clean all --keep 3'';
+        }
+        {
+          name = "nhs";
+          help = "Nix Helper Search (wrapped nh search) for current flake";
+          category = "system";
+          command = ''${pkgs.nh}/bin/nh search'';
+        }
+        {
           name = "fmt";
           help = "Format all files in the repository";
           category = "utils";
