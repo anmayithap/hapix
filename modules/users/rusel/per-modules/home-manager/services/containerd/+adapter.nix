@@ -27,6 +27,7 @@
     home.sessionVariables = {
       COLIMA_HOME = "${colimaHome}";
       DOCKER_HOST = "unix://${colimaHome}/default/docker.sock";
+      DOCKER_CONFIG = "${config.xdg.configHome}/docker";
     };
 
     programs.zsh = with pkgs; {
