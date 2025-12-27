@@ -17,7 +17,7 @@
       # -----------------------------------------------------------------------
       profiles = {
         default = {
-          isActive = true;
+          isActive = false;
 
           # ### Service Orchestration
           # Managed as a persistent background service, ensuring the
