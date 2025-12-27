@@ -66,9 +66,12 @@
           echo "Welcome to the Hapix DevShell"
         '';
 
-        set-flake-root.text = ''
+        set-flake-environment.text = ''
           FLAKE="''$(${lib.getExe config.flake-root.package})"
           export FLAKE
+
+          NH_FLAKE="''$(${lib.getExe config.flake-root.package})"
+          export NH_FLAKE
         '';
 
         pre-commit.text = config.pre-commit.installationScript;
