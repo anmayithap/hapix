@@ -28,7 +28,11 @@
       # in primary development workspace.
       config = {
         whitelist = {
-          prefix = ["${homeDirectory}/dev"];
+          prefix = [
+            "${homeDirectory}/dev"
+            "${config.xdg.configHome}/hapix"
+            "${config.xdg.configHome}/hapix-secret"
+          ];
         };
       };
 
