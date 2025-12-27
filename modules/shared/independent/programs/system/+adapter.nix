@@ -30,7 +30,7 @@ let
         # in the user's profile.
         nixh = "${lib.getExe pkgs.nh}";
 
-        # #### nixc (Nix Clean)
+        # #### nhc (Nix Clean)
         # Performs a safe cleanup of old system and home-manager generations.
         #
         # By default, this will:
@@ -39,7 +39,7 @@ let
         # 3. Optimize the nix store by hardlinking duplicates.
         nhc = "${lib.getExe pkgs.nh} clean all";
 
-        # #### nixca (Nix Clean Aggressive)
+        # #### nhca (Nix Clean Aggressive)
         # A more aggressive cleanup that keeps only the most recent
         # generations. Useful when disk space is low.
         #
