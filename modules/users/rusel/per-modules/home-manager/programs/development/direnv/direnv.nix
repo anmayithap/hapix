@@ -30,6 +30,7 @@
         whitelist = {
           prefix = [
             "${homeDirectory}/dev"
+            "${homeDirectory}/learn"
             "${config.xdg.configHome}/hapix"
             "${config.xdg.configHome}/hapix-secret"
           ];
