@@ -17,9 +17,7 @@
       # -----------------------------------------------------------------------
 
       # ### History Location
-      # Places the history file inside our hidden '.zshell' directory
-      # to maintain a clean home root.
-      path = lib.mkForce "${config.programs.zsh.dotDir}/.histfile";
+      path = lib.mkForce "${config.xdg.cacheHome}/zsh/history";
 
       # ### Shared Context
       # Ensures multiple open terminal windows can read and write to

@@ -38,11 +38,11 @@
       # ## Directory Management (Clean Home)
       # -----------------------------------------------------------------------
       # Relocates Zsh-specific files (.zshrc, .zprofile, etc.) from the
-      # home root to a hidden '.zshell' subdirectory.
+      # home root to a hidden '.config/zsh' subdirectory.
       #
       # This supports our "Clean Home" philosophy and keeps the root
       # of the home directory free of shell-specific clutter.
-      dotDir = lib.mkForce "${config.home.homeDirectory}/.zshell";
+      dotDir = lib.mkForce "${config.xdg.configHome}/zsh";
 
       # -----------------------------------------------------------------------
       # ## Shell Options (Setopt)
