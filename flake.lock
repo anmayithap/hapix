@@ -406,6 +406,29 @@
         "type": "github"
       }
     },
+    "nur": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767708933,
+        "narHash": "sha256-9FoifobGKElf4830Tp8e8XvlJ9G6aDGQ2IyvKq9S5gQ=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "29bda054ce4729b7ed5be9cfc638f9860972fe61",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -423,6 +446,7 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
+        "nur": "nur",
         "secrets": "secrets",
         "systems": "systems_2",
         "treefmt-nix": "treefmt-nix"

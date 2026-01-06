@@ -128,6 +128,19 @@
     };
 
     # -----------------------------------------------------------------------
+    # ## Miscellaneous Flakes
+    # -----------------------------------------------------------------------
+
+    # `NUR` provides a collection of Nix expressions for various purposes.
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
+    # -----------------------------------------------------------------------
     # ## Self non-flakes
     # -----------------------------------------------------------------------
     # A sequence of system names that supported by this flake.

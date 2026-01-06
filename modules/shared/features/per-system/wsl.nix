@@ -30,6 +30,7 @@
       inputs.home-manager.nixosModules.home-manager # Declarative user env
       inputs.nix-index-database.nixosModules.nix-index # Fast file-to-package lookup
       inputs.agenix.nixosModules.default # Secret management (system-wide)
+      inputs.nur.modules.nixos.default # Declarative Nix package sources
 
       # -----------------------------------------------------------------------
       # ### Core System Infrastructure

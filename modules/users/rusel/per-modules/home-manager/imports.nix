@@ -16,6 +16,8 @@
     # ### External Frameworks
     # Enables encrypted secret decryption within the user's home directory.
     inputs.agenix.homeManagerModules.default
+    # Declarative Nix package sources
+    inputs.nur.modules.homeManager.default
 
     # ### System Utilities
     # Provides fast 'nix-index' lookups and the ',' (comma) runner.

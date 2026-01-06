@@ -20,6 +20,7 @@
     inputs.nix-index-database.darwinModules.nix-index # Fast file-to-package lookup
     inputs.nix-homebrew.darwinModules.nix-homebrew # Declarative Homebrew taps
     inputs.agenix.darwinModules.default # Encrypted secrets management
+    inputs.nur.modules.darwin.default # Declarative Nix package sources
 
     # -----------------------------------------------------------------------
     # ### Core System Infrastructure
