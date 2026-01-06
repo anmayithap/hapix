@@ -43,7 +43,7 @@
         # Even though 'hidden' is enabled, we explicitly exclude the
         # '.git' directory. This prevents search clutter from internal
         # object databases and improves performance in large repositories.
-        "--exclude .git"
+        "--exclude=.git"
       ];
     };
   };
