@@ -18,6 +18,8 @@
     inputs.agenix.homeManagerModules.default
     # Declarative Nix package sources
     inputs.nur.modules.homeManager.default
+    # Declarative module better-fox
+    inputs.betterfox.homeModules.betterfox
 
     # ### System Utilities
     # Provides fast 'nix-index' lookups and the ',' (comma) runner.
