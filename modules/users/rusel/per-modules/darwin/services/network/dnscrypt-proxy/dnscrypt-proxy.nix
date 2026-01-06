@@ -25,17 +25,17 @@
         # ### Upstream Providers
         # We specify our preferred resolvers.
         # - 'geohide': A specialized provider likely used for regional routing.
+        # - 'quad9-dnscrypt-ip4-filter-ecs-pri': A high-performance, global
+        #   privacy provider.
         # - 'cloudflare': A reliable, low-latency global privacy provider.
         server_names = [
           "geohide"
+          "quad9-dnscrypt-ip4-filter-ecs-pri"
           "cloudflare"
         ];
 
         # ### Load Balancing Strategy
-        # 'first' tells the proxy to always try the first server in the
-        # list (geohide) and only failover to the next if it's unavailable.
-        # This ensures our preferred regional routing is prioritized.
-        lb_strategy = "first";
+        lb_strategy = "wp2";
 
         # ### Custom Server Definition (Stamps)
         # We define the 'geohide' server using a DNS Stamp.

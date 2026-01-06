@@ -29,9 +29,19 @@
         # Pulls the host-specific settings (Name) from the shared registry.
         inputs.self.modules.nixos.${name}
 
-        # Inline hardware and versioning baseline.
         {
-          nixpkgs.hostPlatform = lib.mkDefault system;
+          nixpkgs = {
+            hostPlatform = lib.mkDefault system;
+
+            overlays = [
+              (final: _: {
+                stable = import inputs.nixpkgs-stable {
+                  inherit (final.stdenv.hostPlatform) system;
+                  inherit (final) config;
+                };
+              })
+            ];
+          };
 
           # The state version for the latest NixOS release (2025.11).
           # This ensures compatibility with data created on this version.
@@ -56,7 +66,18 @@
         inputs.self.modules.darwin.${name}
 
         {
-          nixpkgs.hostPlatform = lib.mkDefault system;
+          nixpkgs = {
+            hostPlatform = lib.mkDefault system;
+
+            overlays = [
+              (final: _: {
+                stable = import inputs.nixpkgs-stable {
+                  inherit (final.stdenv.hostPlatform) system;
+                  inherit (final) config;
+                };
+              })
+            ];
+          };
 
           # The standard state version for current nix-darwin installations.
           system.stateVersion = 6;

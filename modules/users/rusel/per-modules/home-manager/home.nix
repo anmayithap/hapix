@@ -5,7 +5,7 @@
 # identity, establishing the username, home directory path, and the
 # configuration state version across all platforms.
 # =========================================================================
-{
+{inputs, ...}: {
   # -----------------------------------------------------------------------
   # ## User Environment Registry
   # -----------------------------------------------------------------------
@@ -44,5 +44,16 @@
     # compatible with the expected behaviors of this version, even if
     # future Home Manager updates change their internal defaults.
     home.stateVersion = lib.mkDefault "25.11";
+
+    nixpkgs = {
+      overlays = [
+        (final: _: {
+          stable = import inputs.nixpkgs-stable {
+            inherit (final.stdenv.hostPlatform) system;
+            inherit (final) config;
+          };
+        })
+      ];
+    };
   };
 }
