@@ -140,6 +140,16 @@
       };
     };
 
+    betterfox = {
+      url = "github:HeitorAugustoLN/betterfox-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
+        systems.follows = "systems";
+      };
+    };
+
     # -----------------------------------------------------------------------
     # ## Self non-flakes
     # -----------------------------------------------------------------------
@@ -153,7 +163,8 @@
   # =========================================================================
   # == OUTPUTS: The results produced by this flake.
   # =========================================================================
-  outputs = inputs:
+  outputs =
+    inputs:
     inputs.flake-parts.lib.mkFlake {
       inherit inputs;
     } (inputs.import-tree ./modules);
