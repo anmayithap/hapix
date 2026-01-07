@@ -485,11 +485,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1766606323,
-        "narHash": "sha256-6Ab73gd7dt6Am5eMXp1f4nxFvhci44rZ2RQ5tvlwpXE=",
+        "lastModified": 1767744500,
+        "narHash": "sha256-YnTd4bpCyMa7i2vxASpyj4blazQPfb5DjpLFVG8ccO4=",
         "ref": "refs/heads/master",
-        "rev": "ba2d000c1514bec9a17321465e9e104275e5cf4c",
-        "revCount": 17,
+        "rev": "037c2f4cdba17e5a6f63984cc7a8fe3d05bbc59b",
+        "revCount": 19,
         "type": "git",
         "url": "ssh://git@github.com/anmayithap/hapix-secret.git"
       },

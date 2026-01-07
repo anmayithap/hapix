@@ -23,14 +23,9 @@
       # -----------------------------------------------------------------------
       settings = {
         # ### Upstream Providers
-        # We specify our preferred resolvers.
-        # - 'geohide': A specialized provider likely used for regional routing.
-        # - 'quad9-dnscrypt-ip4-filter-ecs-pri': A high-performance, global
-        #   privacy provider.
-        # - 'cloudflare': A reliable, low-latency global privacy provider.
         server_names = [
           "geohide"
-          "quad9-dnscrypt-ip4-filter-ecs-pri"
+          "comss.one"
           "cloudflare"
         ];
 
@@ -44,6 +39,19 @@
         static = {
           geohide = {
             stamp = "sdns://AgcAAAAAAAAAAAASZG5zLmdlb2hpZGUucnU6NDQ0Ci9kbnMtcXVlcnk";
+          };
+        };
+
+        sources = {
+          public-resolvers = {
+            urls = [
+              "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
+              "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
+            ];
+            cache_file = "public-resolvers.md";
+            minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+            refresh_delay = 73;
+            prefix = "";
           };
         };
 
@@ -63,7 +71,7 @@
         # ### Performance & Logging
         # Enable a local cache to prevent redundant network requests.
         cache = true;
-        cache_size = 512;
+        cache_size = 4096;
 
         # Set log level to 0 (errors only) to reduce disk I/O and
         # maintain maximum privacy for DNS queries.

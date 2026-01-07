@@ -15,7 +15,7 @@
     # -----------------------------------------------------------------------
     # Explicitly whitelist VS Code in the selective unfree software policy.
     # This is required because the standard VS Code binary is proprietary.
-    unfree = with pkgs.stable; [vscode];
+    unfree = with pkgs; [vscode];
 
     # -----------------------------------------------------------------------
     # ## Program Configuration
@@ -28,7 +28,7 @@
       # ### Package Selection
       # Use the standard 'vscode' package from nixpkgs.
       # This provides the official Microsoft build with full extension support.
-      package = pkgs.stable.vscode;
+      package = pkgs.vscode;
     };
   };
 }
