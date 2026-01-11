@@ -1,14 +1,7 @@
-# =========================================================================
-# == DEVSHELL: Reproducible development environment
-# This module defines the environment that activates when you run
-# `nix develop`. It provides the necessary tooling, aliases, and
-# automation to work on this flake comfortably.
-# =========================================================================
-{inputs, ...}: {
-  imports = [
-    inputs.devshell.flakeModule
-  ];
-
+# ----------------------------------------------------------------------------
+# ## Devshell: Reproducible environment configuration for developing this flake.
+# ----------------------------------------------------------------------------
+{
   perSystem = {
     config,
     pkgs,
@@ -21,27 +14,26 @@
     devshells.default = {
       name = "hapix";
 
-      # ### Essential Packages
-      packages = [
+      # ### Packages installed inside the environment
+      packages = with pkgs; [
         # Language server
-        pkgs.nil
+        nixd
 
         # System management
-        pkgs.nh
+        nh
+        nix-index
 
         # Formatting
         config.treefmt.build.wrapper
       ];
 
-      # ### Custom Utility Commands
+      # ### Predefined menu commands
       commands = [
         {
           name = "nixh";
           help = "Nix Helper (wrapped nh) for current flake";
           category = "system";
 
-          # IMPROVEMENT: Using "$@" with quotes and explicitly
-          # pointing to the flake directory if $FLAKE is set.
           command = ''
             if [ -z "$1" ]; then
               ${pkgs.nh}/bin/nh --help
@@ -67,7 +59,7 @@
         }
         {
           name = "nhca";
-          help = "Nix Helper Clean Aggressive (wrapped nh clean) for current flake";
+          help = "Nix Helper Clean With Keeps (wrapped nh clean) for current flake";
           category = "system";
           command = ''${pkgs.nh}/bin/nh clean all --keep 3'';
         }

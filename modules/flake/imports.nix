@@ -1,34 +1,19 @@
-# =========================================================================
-# == IMPORTS: Core framework and external flake modules
-# This module acts as the integration hub. It pulls in external logic from
-# our inputs and injects it into the flake-parts evaluation process.
-# This is what enables high-level features like Home Manager integration
-# and project root discovery.
-# =========================================================================
+# ----------------------------------------------------------------------------
+# ## Imports: Importing external modules
+# ----------------------------------------------------------------------------
 {inputs, ...}: {
   imports = [
-    # -----------------------------------------------------------------------
-    # ## Home Manager Integration
-    # -----------------------------------------------------------------------
-    # This module allows defining `homeConfigurations` directly within
-    # flake-parts. It streamlines how we manage user dotfiles and
-    # environment settings across different systems.
+    # ## Devshell Flake Integration
+    inputs.devshell.flakeModule
+    # ## Treefmt Flake Integration
+    inputs.treefmt-nix.flakeModule
+    # ## Home Manager Flake Integration
     inputs.home-manager.flakeModules.home-manager
-
-    # -----------------------------------------------------------------------
-    # ## Flake-Parts Modules Support
-    # -----------------------------------------------------------------------
-    # This enables the `modules` attribute within flake-parts, allowing
-    # the flake itself to be split into multiple, reusable files.
-    # It is the foundation of our "import-tree" modular architecture.
+    # ## Flake Parts Integration (Modules)
     inputs.flake-parts.flakeModules.modules
-
-    # -----------------------------------------------------------------------
-    # ## Flake Root Discovery
-    # -----------------------------------------------------------------------
-    # Provides the `flake-root` attribute to all `perSystem` configurations.
-    # We use this for reliable path discovery in our DevShells, formatters,
-    # and system deployment scripts.
+    # ## Flake Root Integration
     inputs.flake-root.flakeModule
+    # ## Flake Git Hooks Integration
+    inputs.git-hooks-nix.flakeModule
   ];
 }
