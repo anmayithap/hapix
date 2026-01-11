@@ -28,7 +28,7 @@ launching functions for calculating configurations, etc.
 ### Package modules
 
 > [!NOTE]
-> Go To [`package`](./package/README.md)
+> Go To [`package`](./packages/README.md)
 
 ### Shared modules
 
