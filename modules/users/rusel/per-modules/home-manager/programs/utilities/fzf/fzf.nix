@@ -24,11 +24,6 @@
         "--border" # Add a subtle frame around the finder.
         "--info=inline" # Display match counts next to the query.
 
-        # #### Minimalist Interface Icons
-        ''--prompt="❯ "''
-        ''--pointer="❯ "''
-        ''--marker="❯ "''
-
         # #### Preview Window Configuration
         # Positions previews to the right, taking up 50% of the fzf window.
         "--preview-window=right:50%:border-block"
