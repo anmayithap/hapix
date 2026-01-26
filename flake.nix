@@ -16,7 +16,7 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "master";
+      ref = "nixpkgs-unstable";
     };
 
     # `nixpkgs-stable` is already a stable branch of the nix ecosystem package sources.
@@ -231,8 +231,6 @@
         darwin.follows = "nix-darwin";
         # In fact, we force the our `home-manager` input to use `agenix`
         home-manager.follows = "home-manager";
-        # In fact, we force the our `systems` input to use `agenix`
-        systems.follows = "systems";
       };
     };
 
@@ -275,8 +273,6 @@
         flake-parts.follows = "flake-parts";
         # In fact, we force the our `import-tree` input to use `betterfox`
         import-tree.follows = "import-tree";
-        # In fact, we force the our `systems` input to use `betterfox`
-        systems.follows = "systems";
       };
     };
 
@@ -295,6 +291,23 @@
       };
     };
 
+    # `nvf` A Neovim configuration framework.
+    #
+    # See `index`: https://nvf.notashelf.dev/
+    nvf = {
+      type = "github";
+      owner = "notashelf";
+      repo = "nvf";
+      ref = "main";
+
+      inputs = {
+        # In fact, we force the unstable branch of `nixpkgs` to use `nvim`
+        nixpkgs.follows = "nixpkgs";
+        # In fact, we force our `flake-parts` input to use `nvim`
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
     # -----------------------------------------------------------------------
     # ## Self non-flakes
     # -----------------------------------------------------------------------
@@ -304,16 +317,6 @@
     # Note: This is not a flake! This is a collection of secrets files.
     secrets = {
       url = "git+ssh://git@github.com/anmayithap/hapix-secret.git";
-
-      flake = false;
-    };
-
-    # `systems` is a sequence of system names that supported by this flake.
-    #
-    # Note: This is not a flake! This is a file.
-    systems = {
-      type = "path";
-      path = "./systems.nix";
 
       flake = false;
     };
