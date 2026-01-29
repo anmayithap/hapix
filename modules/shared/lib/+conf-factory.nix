@@ -1,125 +1,120 @@
-# =========================================================================
-# == SHARED LIBRARY: Configuration Factory (conf-factory)
-# This module defines the high-level "factories" used to instantiate
-# NixOS and Darwin systems. It abstracts the boilerplate of system
-# definition, enforcing a consistent structure by combining base
-# profiles (classes) with specific machine configurations (names).
-# =========================================================================
-{
-  inputs,
-  lib,
-  ...
-}: let
-  # -----------------------------------------------------------------------
-  # ## NixOS Configuration Factory (Linux)
-  # -----------------------------------------------------------------------
-  # A decorator that produces a full NixOS system.
-  # Params:
-  # - `system`: The architecture (e.g., "x86_64-linux").
-  # - `class`: The base profile to use (e.g., "nixos" or "wsl").
-  # - `name`: The specific host identifier (e.g., "maple-linux").
-  mkLinuxDecorator = system: class: name:
-    inputs.nixpkgs.lib.nixosSystem {
+# ----------------------------------------------------------------------------
+# ## System Configuration Factory
+# ----------------------------------------------------------------------------
+# This module defines attribute sets, which contains presets and decorators
+# for system assemblies.
+{inputs, ...}: let
+  /*
+  ---------------------------------------------------------------------------
+  getMod: Extract the attribute set of the module
+  ---------------------------------------------------------------------------
+
+  Arguments:
+    path: Path to the module
+    name: Name of the module
+
+  Returns:
+    The attribute set of the module
+  */
+  getMod = path: name: path.${name} or {};
+
+  /*
+  ---------------------------------------------------------------------------
+  mkSystem: Create a system configuration
+  ---------------------------------------------------------------------------
+
+  Arguments:
+    builder: System builder function (nixosSystem, darwinSystem, etc.)
+    system: System architecture (x86_64-linux, aarch64-darwin, etc.)
+    class: Module class (nixos, darwin, generic, etc.)
+    name: Host name
+
+  Returns:
+    The system configuration
+  */
+  mkSystem = builder: system: class: name:
+    builder {
       inherit system;
 
       modules = [
-        # Pulls the base profile (Class) from the shared registry.
-        inputs.self.modules.nixos.${class}
-
-        # Pulls the host-specific settings (Name) from the shared registry.
-        inputs.self.modules.nixos.${name}
-
-        {
-          nixpkgs = {
-            hostPlatform = lib.mkDefault system;
-
-            overlays = [
-              (final: _: {
-                stable = import inputs.nixpkgs-stable {
-                  inherit (final.stdenv.hostPlatform) system;
-                  inherit (final) config;
-                };
-              })
-            ];
-          };
-
-          # The state version for the latest NixOS release (2025.11).
-          # This ensures compatibility with data created on this version.
-          system.stateVersion = "25.11";
-        }
+        (getMod inputs.self.modules.generic name)
+        (getMod inputs.self.modules.nixos class)
+        (getMod inputs.self.modules.nixos name)
       ];
     };
 
-  # -----------------------------------------------------------------------
-  # ## Darwin Configuration Factory (macOS)
-  # -----------------------------------------------------------------------
-  # A decorator that produces a full nix-darwin system.
-  mkDarwinDecorator = system: class: name:
-    inputs.nix-darwin.lib.darwinSystem {
-      inherit system;
+  decorators = {
+    /*
+    ---------------------------------------------------------------------------
+    mkLinux: Create a Linux system configuration
+    ---------------------------------------------------------------------------
 
-      modules = [
-        # Pulls the base Darwin profile (e.g., "darwin").
-        inputs.self.modules.darwin.${class}
+    Arguments:
+      system: System architecture
+      class: Module class
+      name: Host name
 
-        # Pulls the specific macOS host configuration.
-        inputs.self.modules.darwin.${name}
+    Returns:
+      The system configuration
+    */
+    mkLinux = mkSystem inputs.nixpkgs.lib.nixosSystem;
+    /*
+    ---------------------------------------------------------------------------
+    mkDarwin: Create a Darwin system configuration
+    ---------------------------------------------------------------------------
 
-        {
-          nixpkgs = {
-            hostPlatform = lib.mkDefault system;
+    Arguments:
+      system: System architecture
+      class: Module class
+      name: Host name
 
-            overlays = [
-              (final: _: {
-                stable = import inputs.nixpkgs-stable {
-                  inherit (final.stdenv.hostPlatform) system;
-                  inherit (final) config;
-                };
-              })
-            ];
-          };
+    Returns:
+      The system configuration
+    */
+    mkDarwin = mkSystem inputs.nix-darwin.lib.darwinSystem;
+  };
 
-          # The standard state version for current nix-darwin installations.
-          system.stateVersion = 6;
-        }
-      ];
-    };
+  presets = {
+    /*
+    ---------------------------------------------------------------------------
+    mkLinuxWSLX86: Create a Linux WSL system configuration on x86_64-linux
+    ---------------------------------------------------------------------------
 
-  # -----------------------------------------------------------------------
-  # ## Specialized Factory Helpers
-  # -----------------------------------------------------------------------
-  # These pre-applied (curried) functions provide a simpler API for the
-  # most common system types in our infrastructure.
+    Arguments:
+      name: Host name
 
-  # Instantiates a WSL instance on x86_64.
-  mkLinuxWSL = mkLinuxDecorator "x86_64-linux" "wsl";
+    Returns:
+      The system configuration
+    */
+    mkLinuxWSLX86 = decorators.mkLinux "x86_64-linux" "wsl";
+    /*
+    ---------------------------------------------------------------------------
+    mkLinuxX86: Create a Linux system configuration on x86_64-linux
+    ---------------------------------------------------------------------------
 
-  # Instantiates a standard NixOS machine on x86_64.
-  mkLinux = mkLinuxDecorator "x86_64-linux" "nixos";
+    Arguments:
+      name: Host name
 
-  # Instantiates a standard Apple Silicon macOS configuration.
-  mkDarwin = mkDarwinDecorator "aarch64-darwin" "darwin";
+    Returns:
+      The system configuration
+    */
+    mkLinuxX86 = decorators.mkLinux "x86_64-linux" "nixos";
+    /*
+    ---------------------------------------------------------------------------
+    mkDarwinSilicon: Create a Darwin system configuration on aarch64-darwin
+    ---------------------------------------------------------------------------
+
+    Arguments:
+      name: Host name
+
+    Returns:
+      The system configuration
+    */
+    mkDarwinSilicon = decorators.mkDarwin "aarch64-darwin" "darwin";
+  };
 in {
-  # -----------------------------------------------------------------------
-  # ## Library Export
-  # -----------------------------------------------------------------------
-  # We expose the factory under the 'flake.lib' attribute. This allows
-  # our 'flake/configurations.nix' to call these functions to define
-  # the actual outputs of the flake.
-  flake = {
-    lib = {
-      conf-factory = {
-        inherit
-          mkLinuxDecorator
-          mkDarwinDecorator
-          ;
-
-        inherit
-          mkLinuxWSL
-          mkLinux
-          mkDarwin
-          ;
-      };
-    };
+  flake.lib.confFactory = {
+    inherit presets;
+    inherit decorators;
   };
 }

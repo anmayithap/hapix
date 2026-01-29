@@ -1,49 +1,41 @@
-# =========================================================================
-# == SHARED LIBRARY: Selective Unfree Policy (nixpkgs-unfree)
-# This module defines a type-safe and granular approach to managing
-# proprietary software. Instead of a global "allowUnfree = true", it
-# provides a whitelist mechanism, ensuring that only explicitly
-# declared unfree packages can be installed.
-# =========================================================================
+# ----------------------------------------------------------------------------
+# ## Nixpkgs Unfree Configuration
+# ----------------------------------------------------------------------------
+# This module defines a Nixpkgs option that allows to specify a list of
+# packages that are allowed to be built with the `nixpkgs.config.allowUnfreePredicate`
+# predicate function.
+#
+# Note: Since this lib module defines the description of options,
+# it is necessary to initialize the attribute set. For example:
+#
+# ```nix
+# flake.modules.generic.nixpkgs-unfree = inputs.self.lib.nixpkgs-unfree;
+# ```
 {
-  flake = {
-    lib = {
-      # -----------------------------------------------------------------------
-      # ## nixpkgs-unfree Module Logic
-      # -----------------------------------------------------------------------
-      # This is a module function that can be injected into Darwin, NixOS,
-      # or Home Manager registries.
-      nixpkgs-unfree = {
-        lib,
-        config,
-        ...
-      }: {
-        # ### Options Definition
-        options.unfree = lib.mkOption {
-          # A list of package objects that are allowed to be unfree.
-          type = lib.types.listOf lib.types.package;
-          default = [];
-          example = "with pkgs; [ obsidian vscode ]";
-          description = ''
-            A whitelist of unfree packages allowed for this specific host.
-            Only packages in this list will bypass the Nixpkgs unfree check.
-          '';
-        };
+  flake.lib.unfree = {
+    lib,
+    config,
+    ...
+  }: let
+    inherit (lib.types) listOf package;
+  in {
+    options.unfree = lib.mkOption {
+      type = listOf package;
 
-        # ### Implementation: Allow Unfree Predicate
-        # We override the standard Nixpkgs behavior using a predicate.
-        # For every package Nix attempts to evaluate, this function checks
-        # if the package name exists in our 'unfree' whitelist.
-        config.nixpkgs.config.allowUnfreePredicate = pkg: let
-          # Extract the human-readable name of the package (e.g., "obsidian").
-          pkgName = lib.getName pkg;
+      default = [];
+      defaultText = ''[]'';
 
-          # Extract the names of all packages currently in our whitelist.
-          allowedNames = map lib.getName config.unfree;
-        in
-          # Logic: If the package being checked is in our list, allow it.
-          lib.elem pkgName allowedNames;
-      };
+      description = ''
+        List of `nixpkgs` packages to which the predicate function
+        from `nixpkgs.config.allowUnfreePredicate` applies.
+      '';
     };
+
+    config.nixpkgs.config.allowUnfreePredicate = pkg: let
+      pkgName = lib.getName pkg;
+
+      allowedNames = map lib.getName config.unfree;
+    in
+      lib.elem pkgName allowedNames;
   };
 }
