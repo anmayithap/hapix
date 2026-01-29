@@ -1,6 +1,6 @@
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # ## Devshell: Reproducible environment configuration for developing this flake.
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 {
   perSystem = {
     config,
@@ -8,9 +8,9 @@
     lib,
     ...
   }: {
-    # -----------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     # ## Default Shell Configuration
-    # -----------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     devshells.default = {
       name = "hapix";
 
@@ -22,6 +22,9 @@
         # System management
         nh
         nix-index
+        nix-du
+        nix-melt
+        nix-tree
 
         # Formatting
         config.treefmt.build.wrapper
@@ -62,6 +65,30 @@
           help = "Nix Helper Clean With Keeps (wrapped nh clean) for current flake";
           category = "system";
           command = ''${pkgs.nh}/bin/nh clean all --keep 3'';
+        }
+        {
+          name = "nmelt";
+          help = "A range-like flake.lock viewer";
+          category = "utils";
+          command = ''${pkgs.nix-melt}/bin/nix-melt "$@"'';
+        }
+        {
+          name = "ndu";
+          help = "Diagnostic utility for searching gc-roots optimizations";
+          category = "utils";
+          command = ''${pkgs.nix-du}/bin/nix-du "$@"'';
+        }
+        {
+          name = "ntree";
+          help = "Interactively browse dependency graphs of Nix derivations";
+          category = "utils";
+          command = ''
+            if [ -z "$1" ]; then
+              ${pkgs.nix-tree}/bin/nix-tree /nix/var/nix/profiles/system
+            else
+              ${pkgs.nix-tree}/bin/nix-tree "$@"
+            fi
+          '';
         }
         {
           name = "nhs";

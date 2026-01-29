@@ -1,6 +1,6 @@
-# ----------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------
 # ## Pre-Commit: Setting up pre-commit hooks
-# ----------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------
 {
   perSystem = {
     config,
@@ -56,7 +56,7 @@
 
           markdownlint.enable = lib.mkDefault true;
 
-          mdformat.enable = lib.mkDefault true;
+          # mdformat.enable = lib.mkDefault true;
 
           mdl.enable = lib.mkDefault true;
         };
