@@ -9,6 +9,6 @@
     # such as data conversion or file relocation.
     #
     # See: https://nix-community.github.io/home-manager/options.xhtml#opt-home.stateVersion
-    home.stateVersion = lib.mkDefault "26.05";
+    home.stateVersion = lib.mkDefault "25.11";
   };
 }

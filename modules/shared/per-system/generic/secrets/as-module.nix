@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Secrets Module: Importing all secrets modules
+# ## Secrets Module: Configures default secrets preferences
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.secrets = {

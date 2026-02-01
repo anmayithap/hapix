@@ -1,12 +1,12 @@
 # ----------------------------------------------------------------------------
-# ## Nixpkgs Stable Overlay Module: Apply the stable nixpkgs
+# ## Unstable nixpkgs Overlay Module: Apply the unstable nixpkgs overlay
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
-  flake.modules.generic.stable-overlay = {lib, ...}: {
+  flake.modules.generic.unstable-overlay = {lib, ...}: {
     nixpkgs.overlays = lib.mkBefore [
       (
         final: _: {
-          stable = import inputs.nixpkgs-stable {
+          unstable = import inputs.nixpkgs-unstable {
             inherit (final.stdenv.hostPlatform) system;
             inherit (final) config;
           };

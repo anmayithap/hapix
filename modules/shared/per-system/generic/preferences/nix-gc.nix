@@ -4,7 +4,7 @@
 {
   flake.modules.generic.nix-gc = {lib, ...}: {
     nix = {
-      optimise.automatic = lib.mkDefault true;
+      optimize.automatic = lib.mkDefault true;
 
       gc = {
         automatic = lib.mkDefault true;
