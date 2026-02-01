@@ -9,25 +9,56 @@
     # ## Nixpkgs Sources
     # -----------------------------------------------------------------------
 
-    # `nixpkgs` is the main source of packages and modules for the nix ecosystem.
-    # This input is used as the main and at the same time unstable
-    # package source.
+    # ## `nixpkgs` is the main source of packages and modules for the nix ecosystem.
+    # This input is used as the main and at the same time stable package source.
     nixpkgs = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+      ref = "nixos-25.11";
+    };
+
+    # ## `nixpkgs-25.11` this is stable channel 25.11
+    "nixpkgs-25.11" = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+      ref = "nixos-25.11";
+    };
+
+    # ## `nixpkgs-unstable` is a unstable branch of the nix ecosystem package sources.
+    # This can be used to get unstable versions of packages if the stable branch is not suitable.
+    nixpkgs-unstable = {
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
       ref = "nixpkgs-unstable";
     };
 
-    # `nixpkgs-stable` is already a stable branch of the nix ecosystem package sources.
-    # This can be used to get stable versions of packages if the unstable branch is not suitable.
-    #
-    # Note: It is necessary to update the nixpkgs-stable version with new stable versions of nixpkgs.
-    nixpkgs-stable = {
+    # ## `nixpkgs-darwin` is a nix ecosystem package sources for Darwin.
+    # This is a stable branch of the nix ecosystem package sources.
+    nixpkgs-darwin = {
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "25.11";
+      ref = "nixpkgs-25.11-darwin";
+    };
+
+    # ## `nixpkgs-25.11-darwin` this is stable channel 25.11
+    "nixpkgs-25.11-darwin" = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+      ref = "nixpkgs-25.11-darwin";
+    };
+
+    # ## `nixpkgs-darwin-unstable` is a nix ecosystem package sources for Darwin.
+    # This can be used to get unstable versions of packages if the stable branch is not suitable.
+    nixpkgs-darwin-unstable = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+      ref = "nixpkgs-unstable";
     };
 
     # -----------------------------------------------------------------------
@@ -44,10 +75,9 @@
       type = "github";
       owner = "LnL7";
       repo = "nix-darwin";
-      ref = "master";
+      ref = "nix-darwin-25.11";
 
-      # In fact, we force the unstable branch of nixpkgs to use `nix-darwin`
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     # `home-manager` allows you to configure the user environment directly.
@@ -61,7 +91,6 @@
       repo = "home-manager";
       ref = "master";
 
-      # In fact, we force the unstable branch of nixpkgs to use `home-manager`
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -74,8 +103,8 @@
       repo = "nixos-wsl";
       ref = "main";
 
-      # In fact, we force the unstable branch of nixpkgs to use `nixos-wsl`
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
     };
 
     # `nix-homebrew` dependency for `nix-darwin`.
@@ -130,7 +159,6 @@
       repo = "devshell";
       ref = "main";
 
-      # In fact, we force the unstable branch of nixpkgs to use `devshell`
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -144,7 +172,6 @@
       repo = "nix-index-database";
       ref = "main";
 
-      # In fact, we force the unstable branch of nixpkgs to use `nix-index-database`
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -158,7 +185,6 @@
       repo = "treefmt-nix";
       ref = "main";
 
-      # In fact, we force the unstable branch of nixpkgs to use `treefmt-nix`
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -185,8 +211,8 @@
       repo = "git-hooks.nix";
       ref = "master";
 
-      # In fact, we force the unstable branch of nixpkgs to use `git-hooks-nix`
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
     };
 
     # `import-tree` is an implementation of the nix dendritic library.
@@ -211,6 +237,16 @@
       ref = "master";
     };
 
+    # `flake-compat` is a compatibility layer for flakes.
+    #
+    # See `index`: https://github.com/NixOS/flake-compat
+    flake-compat = {
+      type = "github";
+      owner = "NixOS";
+      repo = "flake-compat";
+      ref = "master";
+    };
+
     # -----------------------------------------------------------------------
     # ## Secrets Management
     # -----------------------------------------------------------------------
@@ -225,12 +261,10 @@
       ref = "main";
 
       inputs = {
-        # In fact, we force the unstable branch of `nixpkgs` to use `agenix`
         nixpkgs.follows = "nixpkgs";
-        # In fact, we force the our `nix-darwin` input to use `agenix`
         darwin.follows = "nix-darwin";
-        # In fact, we force the our `home-manager` input to use `agenix`
         home-manager.follows = "home-manager";
+        systems.follows = "systems";
       };
     };
 
@@ -249,9 +283,7 @@
       ref = "main";
 
       inputs = {
-        # In fact, we force the unstable branch of `nixpkgs` to use `nur`
         nixpkgs.follows = "nixpkgs";
-        # In fact, we force the our `flake-parts` input to use `nur`
         flake-parts.follows = "flake-parts";
       };
     };
@@ -267,12 +299,10 @@
       ref = "main";
 
       inputs = {
-        # In fact, we force the unstable branch of `nixpkgs` to use `betterfox`
         nixpkgs.follows = "nixpkgs";
-        # In fact, we force the our `flake-parts` input to use `betterfox`
         flake-parts.follows = "flake-parts";
-        # In fact, we force the our `import-tree` input to use `betterfox`
         import-tree.follows = "import-tree";
+        systems.follows = "systems";
       };
     };
 
@@ -286,7 +316,6 @@
       ref = "master";
 
       inputs = {
-        # In fact, we force the unstable branch of `nixpkgs` to use `vscode-extensions`
         nixpkgs.follows = "nixpkgs";
       };
     };
@@ -301,10 +330,10 @@
       ref = "main";
 
       inputs = {
-        # In fact, we force the unstable branch of `nixpkgs` to use `nvim`
         nixpkgs.follows = "nixpkgs";
-        # In fact, we force our `flake-parts` input to use `nvim`
         flake-parts.follows = "flake-parts";
+        flake-compat.follows = "flake-compat";
+        systems.follows = "systems";
       };
     };
 
@@ -318,6 +347,11 @@
     secrets = {
       url = "git+ssh://git@github.com/anmayithap/hapix-secret.git";
 
+      flake = false;
+    };
+
+    systems = {
+      url = "path:./systems.nix";
       flake = false;
     };
   };
