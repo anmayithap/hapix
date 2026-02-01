@@ -38,8 +38,8 @@
 
       modules = [
         (getMod inputs.self.modules.generic name)
-        (getMod inputs.self.modules.nixos class)
-        (getMod inputs.self.modules.nixos name)
+        (getMod inputs.self.modules.${class} class)
+        (getMod inputs.self.modules.${class} name)
       ];
     };
 
