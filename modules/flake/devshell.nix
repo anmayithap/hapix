@@ -33,19 +33,6 @@
       # ### Predefined menu commands
       commands = [
         {
-          name = "nixh";
-          help = "Nix Helper (wrapped nh) for current flake";
-          category = "system";
-
-          command = ''
-            if [ -z "$1" ]; then
-              ${pkgs.nh}/bin/nh --help
-            else
-              ${pkgs.nh}/bin/nh "$@"
-            fi
-          '';
-        }
-        {
           name = "nhsw";
           help = "Nix Helper Switch (wrapped nh switch) for current flake";
           category = "system";
@@ -59,48 +46,6 @@
           help = "Nix Helper Clean (wrapped nh clean) for current flake";
           category = "system";
           command = ''${pkgs.nh}/bin/nh clean all'';
-        }
-        {
-          name = "nhca";
-          help = "Nix Helper Clean With Keeps (wrapped nh clean) for current flake";
-          category = "system";
-          command = ''${pkgs.nh}/bin/nh clean all --keep 3'';
-        }
-        {
-          name = "nmelt";
-          help = "A range-like flake.lock viewer";
-          category = "utils";
-          command = ''${pkgs.nix-melt}/bin/nix-melt "$@"'';
-        }
-        {
-          name = "ndu";
-          help = "Diagnostic utility for searching gc-roots optimizations";
-          category = "utils";
-          command = ''${pkgs.nix-du}/bin/nix-du "$@"'';
-        }
-        {
-          name = "ntree";
-          help = "Interactively browse dependency graphs of Nix derivations";
-          category = "utils";
-          command = ''
-            if [ -z "$1" ]; then
-              ${pkgs.nix-tree}/bin/nix-tree /nix/var/nix/profiles/system
-            else
-              ${pkgs.nix-tree}/bin/nix-tree "$@"
-            fi
-          '';
-        }
-        {
-          name = "nhs";
-          help = "Nix Helper Search (wrapped nh search) for current flake";
-          category = "system";
-          command = ''${pkgs.nh}/bin/nh search'';
-        }
-        {
-          name = "fmt";
-          help = "Format all files in the repository";
-          category = "utils";
-          command = "${config.treefmt.build.wrapper}";
         }
       ];
 
