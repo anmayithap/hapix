@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Systems: Setting up supported systems
+# ## Flake Module: Setting up supported systems
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   systems = import inputs.systems;

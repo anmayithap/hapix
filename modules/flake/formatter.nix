@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Formatter: Set formatting for the project
+# ## Flake Module: Set formatting for the project
 # ----------------------------------------------------------------------------
 {
   perSystem = {
@@ -7,9 +7,6 @@
     config,
     ...
   }: {
-    # -----------------------------------------------------------------------
-    # ## Treefmt Configuration
-    # -----------------------------------------------------------------------
     treefmt = {
       enableDefaultExcludes = lib.mkDefault true;
       projectRootFile = lib.mkDefault config.flake-root.projectRootFile;

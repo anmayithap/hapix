@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Configurations: Entry point for evaluating the configurations.
+# ## Flake Module: Entry point for evaluating the configurations.
 # ----------------------------------------------------------------------------
 {inputs, ...}: let
   # See `modules/shared/lib/+conf-factory.nix` for more details.

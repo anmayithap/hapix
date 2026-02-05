@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Debugging: Flake evaluation debug configuration.
+# ## Flake Module: Flake evaluation debug configuration.
 # All debugging settings for this flake are defined here.
 # ----------------------------------------------------------------------------
 {lib, ...}: {

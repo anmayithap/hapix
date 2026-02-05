@@ -1,5 +1,6 @@
 # ------------------------------------------------------------------------------
-# ## Devshell: Reproducible environment configuration for developing this flake.
+# ## Flake Module: Reproducible environment for development.
+# Configures using `devshell` and `flake-parts`.
 # ------------------------------------------------------------------------------
 {
   perSystem = {

@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Metadata: Setting up metadata for flake
+# ## Flake Module: Setting up metadata for flake
 # ----------------------------------------------------------------------------
 {lib, ...}: {
   flake.meta = {
