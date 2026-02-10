@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
-# ## Packages: DNSCrypt generate-domains-blocklist
-# ----------------------------------------------------------------------------
+# ## Packages Module: DNSCrypt `generate-domains-blocklist`
 # This package is a tool to generate a DNSCrypt block lists, allow lists, etc.
+# ----------------------------------------------------------------------------
 {
   perSystem = {
     lib,
@@ -23,14 +23,16 @@
 
       dontUnpack = true;
 
-      buildInputs = with pkgs; [
-        python314
+      nativeBuildInputs = with pkgs; [
+        python3Minimal
       ];
 
       installPhase = ''
         runHook preInstall
 
         install -Dm755 $src $out/bin/${name}
+
+        patchShebangs $out/bin/${name}
 
         runHook postInstall
       '';
@@ -40,6 +42,7 @@
         homepage = "https://github.com/DNSCrypt/dnscrypt-proxy";
         license = licenses.isc;
         mainProgram = name;
+        platforms = platforms.all;
       };
     };
   };
