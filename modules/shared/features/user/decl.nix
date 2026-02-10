@@ -1,5 +1,6 @@
 # ----------------------------------------------------------------------------
-# ## Features: User Metadata Declaration
+# ## Shared Features Module: User Metadata Declaration.
+# Allows you to integrate the user metadata module into any submodule or flake.
 # ----------------------------------------------------------------------------
 {
   flake.modules.generic.user-meta = {lib, ...}: {

@@ -1,5 +1,7 @@
 # ----------------------------------------------------------------------------
-# ## Features: Flake Metadata Declaration
+# ## Shared Features Module: Flake Metadata Declaration.
+# Allows you to integrate a new meta attribute into a flake,
+# which provides information about that flake.
 # ----------------------------------------------------------------------------
 {lib, ...}: {
   options = {
