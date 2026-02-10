@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Maple Host Configuration: Importing all secrets modules
+# ## Maple Host Module: [Secrets]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.maple.imports = [

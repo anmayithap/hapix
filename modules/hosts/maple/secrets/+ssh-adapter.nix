@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Maple Host Configuration: SSH Secrets
+# ## Maple Host Module: [Security > SSH] Add SSH private key
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.maple = {

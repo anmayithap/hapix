@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Maple Host Configuration: VPN Secrets
+# ## Maple Host Module: [Security > VPN] Add VPN configurations
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.maple = {

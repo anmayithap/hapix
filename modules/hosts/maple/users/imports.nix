@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Maple Host Configuration: Importing all users modules
+# ## Maple Host Module: Importing all `users` modules
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.maple.imports = with inputs.self.modules.generic; [

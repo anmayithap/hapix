@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Maple Host Configuration: Importing all editors modules
+# ## Maple Host Module: [Editors]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.maple.imports = with inputs.self.modules.generic; [
