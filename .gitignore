@@ -4,4 +4,5 @@ result
 .vscode
 .envrc
 .env
+.rumdl_cache
 .pre-commit-config.yaml

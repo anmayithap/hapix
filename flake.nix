@@ -75,9 +75,9 @@
       type = "github";
       owner = "LnL7";
       repo = "nix-darwin";
-      ref = "nix-darwin-25.11";
+      ref = "master";
 
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
     };
 
     # `home-manager` allows you to configure the user environment directly.
@@ -91,7 +91,7 @@
       repo = "home-manager";
       ref = "master";
 
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # `nixos-wsl` provides the necessary modules to declaratively manage WSL.
@@ -103,7 +103,7 @@
       repo = "nixos-wsl";
       ref = "main";
 
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.flake-compat.follows = "flake-compat";
     };
 
@@ -159,7 +159,7 @@
       repo = "devshell";
       ref = "main";
 
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # `nix-index-database` это еженедельно обновляемая база данных nix-index.
@@ -172,7 +172,7 @@
       repo = "nix-index-database";
       ref = "main";
 
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # `treefmt-nix` allows you to use `treefmt` and configure it declaratively.
@@ -185,7 +185,7 @@
       repo = "treefmt-nix";
       ref = "main";
 
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # `flake-parts` is a framework for structuring flake outputs,
@@ -211,7 +211,7 @@
       repo = "git-hooks.nix";
       ref = "master";
 
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.flake-compat.follows = "flake-compat";
     };
 
@@ -261,7 +261,7 @@
       ref = "main";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-unstable";
         darwin.follows = "nix-darwin";
         home-manager.follows = "home-manager";
         systems.follows = "systems";
@@ -283,7 +283,7 @@
       ref = "main";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-unstable";
         flake-parts.follows = "flake-parts";
       };
     };
@@ -299,7 +299,7 @@
       ref = "main";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-unstable";
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
         systems.follows = "systems";
@@ -316,7 +316,7 @@
       ref = "master";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-unstable";
       };
     };
 
@@ -330,7 +330,7 @@
       ref = "main";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-unstable";
         flake-parts.follows = "flake-parts";
         flake-compat.follows = "flake-compat";
         systems.follows = "systems";
