@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------
-# ## WSL Imports Module
+# ## Linux Module: [As Module]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
-  flake.modules.nixos.wsl.imports = [
+  flake.modules.nixos.nixos.imports = [
     # ## Home Manager
     inputs.home-manager.nixosModules.home-manager
     # ## Nix Index Database
@@ -11,7 +11,5 @@
     inputs.agenix.nixosModules.default
     # ## Nur
     inputs.nur.modules.nixos.default
-    # ## WSL
-    inputs.nixos-wsl.nixosModules.default
   ];
 }

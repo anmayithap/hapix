@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## WSL System Preferences Module: Importing all WSL system preferences
+# ## WSL Module: [Preferences]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.nixos.preferences = {
