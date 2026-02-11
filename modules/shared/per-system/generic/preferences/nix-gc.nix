@@ -4,7 +4,7 @@
 {
   flake.modules.generic.nix-gc = {lib, ...}: {
     nix = {
-      optimize = {
+      optimise = {
         automatic = lib.mkDefault true;
 
         interval = lib.mkBefore [

@@ -64,16 +64,6 @@
           enable = lib.mkDefault true;
         };
 
-        # ## Spell Checking Configuration
-        typos = {
-          enable = lib.mkDefault true;
-
-          hidden = lib.mkDefault true;
-          isolated = lib.mkDefault true;
-          locale = lib.mkDefault "en-us";
-          noIgnoreDot = lib.mkDefault true;
-        };
-
         # ## YAML Configuration
         yamlfmt = {
           enable = lib.mkDefault true;
