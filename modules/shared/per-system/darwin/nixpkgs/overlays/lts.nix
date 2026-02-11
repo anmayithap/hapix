@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## LTS Overlay Module: Apply the LTS nixpkgs overlays
+# ## Darwin Module: [LTS Overlay]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.darwin.lts-overlay = {lib, ...}: {

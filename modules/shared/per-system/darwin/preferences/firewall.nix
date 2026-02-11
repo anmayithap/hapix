@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: Firewall
+# ## Darwin Module: [Preferences > Firewall]
 # ----------------------------------------------------------------------------
 {
   flake.modules.darwin.firewall = {lib, ...}: {

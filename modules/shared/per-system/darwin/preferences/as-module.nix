@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: Configures system preferences
+# ## Darwin Module: [Preferences]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.darwin.preferences = {

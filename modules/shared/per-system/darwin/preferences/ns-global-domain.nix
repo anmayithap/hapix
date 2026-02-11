@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: NS Global Domain
+# ## Darwin Module: [Preferences > NS Global Domain]
 # ----------------------------------------------------------------------------
 # See: `defaults read -g`
 {

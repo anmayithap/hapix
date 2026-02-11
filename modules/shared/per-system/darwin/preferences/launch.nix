@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin Launch Services Preferences Module
+# ## Darwin Module: [Preferences > Launch]
 # ----------------------------------------------------------------------------
 {
   flake.modules.darwin.launch = {lib, ...}: {

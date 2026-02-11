@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin Security Preferences Module
+# ## Darwin Module: [Preferences > Security]
 # ----------------------------------------------------------------------------
 {
   flake.modules.darwin.security = {lib, ...}: {

@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: Dock
+# ## Darwin Module: [Preferences > Dock]
 # ----------------------------------------------------------------------------
 # See: `~/Library/Preferences/com.apple.dock.plist` or `defaults read com.apple.dock`
 {

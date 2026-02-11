@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: Track Pad
+# ## Darwin Module: [Preferences > Track Pad]
 # ----------------------------------------------------------------------------
 # See: `~/Library/Preferences/com.apple.AppleMultitouchTrackpad.plist` or `defaults read com.apple.AppleMultitouchTrackpad`
 {

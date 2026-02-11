@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin Networking Preferences Module
+# ## Darwin Module: [Preferences > Networking]
 # ----------------------------------------------------------------------------
 {
   flake.modules.darwin.networking = {lib, ...}: {

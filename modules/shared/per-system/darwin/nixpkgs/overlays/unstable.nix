@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Unstable Overlay Module: Apply the unstable nixpkgs overlay
+# ## Darwin Module: [Unstable Overlay]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.darwin.unstable-overlay = {lib, ...}: {

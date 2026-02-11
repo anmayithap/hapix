@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin Homebrew Preferences Module
+# ## Darwin Module: [Preferences > Nix Homebrew]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.darwin.homebrew = {

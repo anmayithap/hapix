@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: Screen Capture
+# ## Darwin Module: [Preferences > Screen Capture]
 # ----------------------------------------------------------------------------
 # See: `~/Library/Preferences/com.apple.screencapture.plist`
 {

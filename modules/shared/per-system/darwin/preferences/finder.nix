@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: Finder
+# ## Darwin Module: [Preferences > Finder]
 # ----------------------------------------------------------------------------
 # See: `~/Library/Preferences/com.apple.finder.plist` or `defaults read com.apple.finder`
 {

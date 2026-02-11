@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: Control Center
+# ## Darwin Module: [Preferences > Control Center]
 # ----------------------------------------------------------------------------
 # See: `~/Library/Preferences/ByHost/com.apple.controlcenter.plist` or `defaults read com.apple.controlcenter`
 {
@@ -10,20 +10,15 @@
       # See: https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.controlcenter.BatteryShowPercentage
       BatteryShowPercentage = lib.mkDefault true;
       # See: https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.controlcenter.Bluetooth
-      # 24 - Hide icon in menu bar
-      Bluetooth = lib.mkDefault 24;
+      Bluetooth = lib.mkDefault false;
       # See: https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.controlcenter.Display
-      # 24 - Hide icon in menu bar
-      Display = lib.mkDefault 24;
+      Display = lib.mkDefault false;
       # See: https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.controlcenter.FocusModes
-      # 24 - Hide icon in menu bar
-      FocusModes = lib.mkDefault 24;
+      FocusModes = lib.mkDefault false;
       # See: https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.controlcenter.NowPlaying
-      # 24 - Hide icon in menu bar
-      NowPlaying = lib.mkDefault 24;
+      NowPlaying = lib.mkDefault false;
       # See: https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.controlcenter.Sound
-      # 24 - Hide icon in menu bar
-      Sound = lib.mkDefault 24;
+      Sound = lib.mkDefault false;
     };
   };
 }

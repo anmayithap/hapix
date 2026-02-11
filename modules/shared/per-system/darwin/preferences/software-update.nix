@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: Software Update
+# ## Darwin Module: [Preferences > Software Update]
 # ----------------------------------------------------------------------------
 # See: `/Library/Preferences/com.apple.SoftwareUpdate`
 {

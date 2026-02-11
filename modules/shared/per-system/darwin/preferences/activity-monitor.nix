@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: Activity Monitor
+# ## Darwin Module: [Preferences > Activity Monitor]
 # ----------------------------------------------------------------------------
 # See: `~/Library/Preferences/com.apple.ActivityMonitor.plist` or `defaults read com.apple.ActivityMonitor`
 {

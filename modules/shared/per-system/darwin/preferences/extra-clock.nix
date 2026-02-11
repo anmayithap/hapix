@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: Extra Clock
+# ## Darwin Module: [Preferences > Extra Clock]
 # ----------------------------------------------------------------------------
 # See: `~/Library/Preferences/com.apple.menuextra.clock.plist` or `defaults read com.apple.menuextra.clock`
 {

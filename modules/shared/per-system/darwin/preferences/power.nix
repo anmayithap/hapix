@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin Power Management Preferences Module
+# ## Darwin Module: [Preferences > Power]
 # ----------------------------------------------------------------------------
 {
   flake.modules.darwin.power = {lib, ...}: {

@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin Global Preferences Module
+# ## Darwin Module: [Preferences > Global]
 # ----------------------------------------------------------------------------
 # See: `defaults read -globalDomain`
 {

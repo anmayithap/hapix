@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: HI Tool Box
+# ## Darwin Module: [Preferences > HI Tool Box]
 # ----------------------------------------------------------------------------
 # See: `~/Library/Preferences/com.apple.HIToolbox.plist` or `defaults read com.apple.HIToolbox`
 {

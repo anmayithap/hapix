@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: Keyboard
+# ## Darwin Module: [Preferences > Keyboard]
 # ----------------------------------------------------------------------------
 {
   flake.modules.darwin.keyboard = {lib, ...}: {

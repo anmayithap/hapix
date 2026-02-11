@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: Login Window
+# ## Darwin Module: [Preferences > Login Window]
 # ----------------------------------------------------------------------------
 # See: `~/Library/Preferences/com.apple.loginwindow.plist` or `defaults read com.apple.loginwindow`
 {

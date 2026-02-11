@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Darwin System Preferences Module: Window Manager
+# ## Darwin Module: [Preferences > Window Manager]
 # ----------------------------------------------------------------------------
 # See: `~/Library/Preferences/com.apple.WindowManager.plist`
 {
