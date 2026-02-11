@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Editors Module: Importing all editors modules
+# ## Generic Module: [Editors]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.editors = {

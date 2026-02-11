@@ -1,10 +1,10 @@
 # ----------------------------------------------------------------------------
-# ## Generic Module: [Secrets]
+# ## Generic Module: [Programs > Shells > zsh]
 # ----------------------------------------------------------------------------
-{inputs, ...}: {
-  flake.modules.generic.secrets = {
-    imports = [
-      inputs.self.modules.generic.agenix
-    ];
+{
+  flake.modules.generic.zsh = {lib, ...}: {
+    programs.zsh = {
+      enable = lib.mkDefault true;
+    };
   };
 }

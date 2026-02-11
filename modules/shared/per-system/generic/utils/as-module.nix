@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Utils Module: Importing all utils modules
+# ## Generic Module: [Utils]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.utils = {

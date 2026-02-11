@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------------
-# ## ZSH Module: Configures the zsh shell
+# ## Generic Module: [Programs > Shells > fish]
 # ----------------------------------------------------------------------------
 {
-  flake.modules.generic.zsh = {lib, ...}: {
-    programs.zsh = {
+  flake.modules.generic.fish = {lib, ...}: {
+    programs.fish = {
       enable = lib.mkDefault true;
     };
   };

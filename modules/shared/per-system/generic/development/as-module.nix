@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Development Module: Importing all development modules
+# ## Generic Module: [Development]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.development = {

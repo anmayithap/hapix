@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Home Manager Module: Configures home-manager
+# ## Generic Module: [Home Manager]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.homeManager = {lib, ...}: {
@@ -20,10 +20,21 @@
         inputs.nix-index-database.homeModules.nix-index
         # ## Agenix
         inputs.agenix.homeManagerModules.default
+
         # See: `modules/shared/per-system/generic/home-manager/home.nix`
         inputs.self.modules.homeManager.home
         # See: `modules/shared/home-manager/programs/as-module.nix`
         inputs.self.modules.homeManager.programs
+        # See: `modules/shared/home-manager/xdg/as-module.nix`
+        inputs.self.modules.homeManager.xdg
+        # See: `modules/shared/home-manager/user.nix`
+        inputs.self.modules.homeManager.user
+        # See: `modules/shared/home-manager/services/containerization/as-module.nix`
+        inputs.self.modules.homeManager.containerization
+        # See: `modules/shared/home-manager/services/keyboard/as-module.nix`
+        inputs.self.modules.homeManager.keyboard
+        # See: `modules/shared/home-manager/services/secrets/as-module.nix`
+        inputs.self.modules.homeManager.secrets
         # See: `modules/shared/per-system/generic/nixpkgs/unfree.nix`
         inputs.self.modules.generic.unfree
 
@@ -34,8 +45,6 @@
         inputs.self.modules.generic.vscode-extensions-overlay
         # See: `modules/shared/per-system/generic/nixpkgs/overlays/lts.nix`
         inputs.self.modules.generic.lts-overlay
-        # See: `modules/shared/per-system/generic/nixpkgs/overlays/unstable.nix`
-        inputs.self.modules.generic.unstable-overlay
         # See: `modules/shared/per-system/generic/nixpkgs/overlays/dnscrypt.nix`
         inputs.self.modules.generic.dnscrypt-overlay
       ];

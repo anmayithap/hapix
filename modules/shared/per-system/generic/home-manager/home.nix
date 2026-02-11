@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Home Manager: Home section configuration
+# ## Generic Module: [Home Manager > Home]
 # ----------------------------------------------------------------------------
 {
   flake.modules.homeManager.home = {lib, ...}: {
@@ -9,6 +9,6 @@
     # such as data conversion or file relocation.
     #
     # See: https://nix-community.github.io/home-manager/options.xhtml#opt-home.stateVersion
-    home.stateVersion = lib.mkDefault "25.11";
+    home.stateVersion = lib.mkDefault "26.05";
   };
 }

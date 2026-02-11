@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## NUR Overlay Module: Apply the NUR overlay
+# ## Generic Module: [Nixpkgs > Overlays > NUR]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.nur-overlay = {lib, ...}: {

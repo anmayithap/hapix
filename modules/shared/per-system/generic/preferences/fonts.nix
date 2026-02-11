@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Fonts Preferences Module: Configures the fonts preferences
+# ## Generic Module: [Preferences > Fonts]
 # ----------------------------------------------------------------------------
 {
   flake.modules.generic.fonts = {pkgs, ...}: {

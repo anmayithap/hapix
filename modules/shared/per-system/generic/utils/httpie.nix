@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## HTTPie Module: Configures the `httpie` package
+# ## Generic Module: [Utils > HTTPie]
 # ----------------------------------------------------------------------------
 {
   flake.modules.generic.httpie = {pkgs, ...}: {

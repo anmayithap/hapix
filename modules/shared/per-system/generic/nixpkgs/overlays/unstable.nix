@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Unstable nixpkgs Overlay Module: Apply the unstable nixpkgs overlay
+# ## Generic Module: [Nixpkgs > Overlays > Unstable]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.unstable-overlay = {lib, ...}: {

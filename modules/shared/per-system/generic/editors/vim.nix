@@ -1,10 +1,10 @@
 # ----------------------------------------------------------------------------
-# ## Editors: Vim
+# ## Generic Module: [Editors > Vim]
 # ----------------------------------------------------------------------------
 {
   flake.modules.generic.vim = {lib, ...}: {
     programs.vim = {
-      enable = lib.mkDefault true;
+      enable = lib.mkDefault false;
     };
   };
 }

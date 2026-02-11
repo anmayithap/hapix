@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## DNSCrypt Overlay Module: Apply the DNSCrypt overlay
+# ## Generic Module: [Nixpkgs > Overlays > DNSCrypt]
 # ----------------------------------------------------------------------------
 # Adds the dnscrypt blacklist generation package
 # See: `modules/packages/dnscrypt/generate-domains-blocklist.nix`

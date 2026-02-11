@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Preferences Module: Importing all preferences modules
+# ## Generic Module: [Preferences]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.preferences = {

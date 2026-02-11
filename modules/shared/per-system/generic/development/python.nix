@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Development: Python
+# ## Generic Module: [Development > Python]
 # ----------------------------------------------------------------------------
 # Note: This module can be used in any other modules.${class} class,
 # but it should not be used in the `homeManager` class.

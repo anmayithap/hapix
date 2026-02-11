@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Time Preferences Module: Configures the time preferences
+# ## Generic Module: [Preferences > Time]
 # ----------------------------------------------------------------------------
 {
   flake.modules.generic.time = {lib, ...}: {

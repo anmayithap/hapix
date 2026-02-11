@@ -1,12 +1,13 @@
 # ----------------------------------------------------------------------------
-# ## Documentation Preferences Module: Configures the documentation preferences
+# ## Generic Module: [Preferences > Documentation]
 # ----------------------------------------------------------------------------
 {
   flake.modules.generic.documentation = {lib, ...}: {
     documentation = {
-      enable = lib.mkDefault false;
-      doc.enable = lib.mkDefault false;
-      info.enable = lib.mkDefault false;
+      enable = lib.mkDefault true;
+      doc.enable = lib.mkDefault true;
+      info.enable = lib.mkDefault true;
+      man.enable = lib.mkDefault true;
     };
   };
 }

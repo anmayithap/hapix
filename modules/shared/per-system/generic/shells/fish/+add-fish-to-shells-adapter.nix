@@ -1,16 +1,15 @@
 # ----------------------------------------------------------------------------
-# ## ZSH Module (Adapter): Injects zsh into the environment
+# ## Generic Module: [Shells > Fish] environment integration
 # ----------------------------------------------------------------------------
 {
-  flake.modules.generic.zsh = {
+  flake.modules.generic.fish = {
     lib,
-    pkgs,
     config,
     ...
   }: {
-    environment.shells = lib.mkIf config.programs.zsh.enable (
+    environment.shells = lib.mkIf config.programs.fish.enable (
       lib.mkBefore [
-        pkgs.zsh
+        config.programs.fish.package
       ]
     );
   };

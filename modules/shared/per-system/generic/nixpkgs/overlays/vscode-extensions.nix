@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## VSCode Extensions Overlay Module: Apply the VSCode Extensions overlay
+# ## Generic Module: [Nixpkgs > Overlays > VSCode Extensions]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.vscode-extensions-overlay = {lib, ...}: {

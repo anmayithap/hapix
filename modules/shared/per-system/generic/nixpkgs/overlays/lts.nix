@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## LTS nixpkgs Overlay Module: Apply the LTS nixpkgs overlays
+# ## Generic Module: [Nixpkgs > Overlays > LTS]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
   flake.modules.generic.lts-overlay = {lib, ...}: {

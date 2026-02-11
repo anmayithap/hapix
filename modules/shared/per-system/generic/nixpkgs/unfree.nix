@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Nixpkgs Unfree Module: Configures the `nixpkgs.config.allowUnfreePredicate`
+# ## Generic Module: [Nixpkgs > Unfree]
 # ----------------------------------------------------------------------------
 # Allows the following structure to be used within configurations:
 #

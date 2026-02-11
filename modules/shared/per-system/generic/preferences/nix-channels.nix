@@ -1,19 +1,26 @@
 # ----------------------------------------------------------------------------
-# ## Nix Channels Preferences Module: Configures the Nix Channels preferences
+# ## Generic Module: [Preferences > Nix Channels]
 # ----------------------------------------------------------------------------
 {inputs, ...}: {
-  flake.modules.generic.nix-channels = {lib, ...}: {
+  flake.modules.generic.nix-channels = {
+    lib,
+    pkgs,
+    ...
+  }: let
+    nixpkgs =
+      if pkgs.stdenv.isDarwin
+      then inputs.nixpkgs-darwin-unstable
+      else inputs.nixpkgs-unstable;
+  in {
     nix = {
       channel.enable = lib.mkDefault false;
 
       registry = {
-        nixpkgs.flake = lib.mkForce inputs.nixpkgs;
-        nixpkgs-stable.flake = lib.mkForce inputs.nixpkgs-stable;
+        nixpkgs.flake = lib.mkForce nixpkgs;
       };
 
       nixPath = lib.mkBefore [
-        "nixpkgs=${inputs.nixpkgs}"
-        "nixpkgs-stable=${inputs.nixpkgs-stable}"
+        "nixpkgs=${nixpkgs}"
       ];
     };
   };

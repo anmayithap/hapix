@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Nix Index Database Module: Configures the Nix Index Database
+# ## Generic Module: [Nix Index Database]
 # ----------------------------------------------------------------------------
 {
   flake.modules.generic.nix-index-database = {lib, ...}: {

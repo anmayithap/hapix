@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## rsync Module: Configures the `rsync` package
+# ## Generic Module: [Utils > rsync]
 # ----------------------------------------------------------------------------
 {
   flake.modules.generic.rsync = {pkgs, ...}: {

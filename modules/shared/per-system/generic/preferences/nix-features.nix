@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Nix Features Preferences Module: Configures the Nix Features preferences
+# ## Generic Module: [Preferences > Nix Features]
 # ----------------------------------------------------------------------------
 {
   flake.modules.generic.nix-features = {lib, ...}: {

@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Agenix Module: Configures default agenix preferences
+# ## Generic Module: [Secrets > Agenix]
 # ----------------------------------------------------------------------------
 {
   flake.modules.generic.agenix = {lib, ...}: {

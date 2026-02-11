@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Nix Trust Preferences Module: Configures the Nix Trust preferences
+# ## Generic Module: [Preferences > Nix Trust]
 # ----------------------------------------------------------------------------
 {
   flake.modules.generic.nix-trust = {lib, ...}: {
