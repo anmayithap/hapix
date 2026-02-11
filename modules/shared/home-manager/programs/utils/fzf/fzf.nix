@@ -22,6 +22,8 @@
         ''--info=\"right\"''
 
         ''--bind=\"ctrl-/:toggle-preview\"''
+        ''--bind=\"alt-j:preview-down\"''
+        ''--bind=\"alt-k:preview-up\"''
       ];
     };
   };
