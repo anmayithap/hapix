@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# ## Home Manager: Nix Index Database section configuration
+# ## Home Manager: [Programs > nix-index-database]
 # ----------------------------------------------------------------------------
 {
   flake.modules.homeManager.nix-index-database = {lib, ...}: {
