@@ -15,6 +15,8 @@
         ## Servers that are defined in the public-resolvers.md or static resource can be specified here.
         server_names = lib.mkBefore [
           "geohide"
+          "mafioznik"
+          "astracat"
         ];
 
         ## List of local addresses and ports to listen to.
@@ -345,6 +347,12 @@
         static = {
           geohide = {
             stamp = "sdns://AgcAAAAAAAAAAAASZG5zLmdlb2hpZGUucnU6NDQ0Ci9kbnMtcXVlcnk";
+          };
+          astracat = {
+            stamp = "sdns://AgcAAAAAAAAAAAAPZG5zLmFzdHJhY2F0LnJ1Ci9kbnMtcXVlcnk";
+          };
+          mafioznik = {
+            stamp = "sdns://AgcAAAAAAAAAAAARZG5zLm1hZmlvem5pay54eXoKL2Rucy1xdWVyeQ";
           };
         };
       };
