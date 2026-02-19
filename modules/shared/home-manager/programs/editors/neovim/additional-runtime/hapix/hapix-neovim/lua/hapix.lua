@@ -1,1 +1,1 @@
--- hapix configuration. Added to runtime nvf
+-- hapix configuration. Added to nvf runtime
