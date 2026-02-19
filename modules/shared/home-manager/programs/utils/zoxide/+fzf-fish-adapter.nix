@@ -16,7 +16,7 @@
             set -l current_token (commandline --current-token)
 
             set -l command_zoxide (
-              ${lib.getExe config.programs.zoxide.package} query --list | sort -rn | string split / -r -m 1 -f2 --allow-empty | _fzf_wrapper --query=$current_token $fzf_jump_directory_opts
+              ${lib.getExe config.programs.zoxide.package} query --list --exclude / | sort -rn | string split / -r -m 1 -f2 --allow-empty | _fzf_wrapper --query=$current_token $fzf_jump_directory_opts
             )
 
             if test $status -eq 0
