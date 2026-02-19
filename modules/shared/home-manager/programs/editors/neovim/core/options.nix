@@ -39,7 +39,7 @@
       # ## Configure clipboard to `unnamedplus` register
       clipboard = {
         enable = mkHapixDefault true;
-        registers = mkHapixDefault (lib.mkLuaInline ''vim.env.SSH_CONNECTION and "" or "unnamedplus"'');
+        registers = mkHapixDefault "unnamedplus";
       };
       options = {
         # -------------------------
