@@ -337,6 +337,20 @@
       };
     };
 
+    # `nix-wrapper-modules` library to create wrapped executables via the module system.
+    #
+    # See: `index`: https://birdeehub.github.io/nix-wrapper-modules/md/intro.html
+    wrapper = {
+      type = "github";
+      owner = "birdeehub";
+      repo = "nix-wrapper-modules";
+      ref = "main";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+      };
+    };
+
     # -----------------------------------------------------------------------
     # ## Self non-flakes
     # -----------------------------------------------------------------------
