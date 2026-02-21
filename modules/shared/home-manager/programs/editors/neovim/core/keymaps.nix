@@ -109,66 +109,73 @@
           desc = "Select previous buffer";
           unique = true;
         }
-        # ## Lifecycle (Delete)
-        {
-          key = "<leader>bd";
-          mode = ["n"];
-          action = "<cmd>bd<CR>";
-          desc = "Delete buffer";
-        }
-        {
-          key = "<leader>bda";
-          mode = ["n"];
-          action = "<cmd>bufdo bd<CR>";
-          desc = "Delete all buffers";
-          unique = true;
-        }
-        {
-          key = "<leader>bdo";
-          mode = ["n"];
-          action = "<cmd>%bd|e#|bd#<CR>";
-          desc = "Delete other buffers";
-        }
-        # ## Lifecycle (Unload)
-        {
-          key = "<leader>bc";
-          mode = ["n"];
-          action = "<cmd>bun<CR>";
-          desc = "Unload buffer";
-        }
-        {
-          key = "<leader>bca";
-          mode = ["n"];
-          action = "<cmd>bufdo bun<CR>";
-          desc = "Unload all buffers";
-          unique = true;
-        }
-        {
-          key = "<leader>bco";
-          mode = ["n"];
-          action = "<cmd>%bun|e#|bun#<CR>";
-          desc = "Unload other buffers";
-        }
-        # ## Lifecycle (Wipeout)
-        {
-          key = "<leader>bq";
-          mode = ["n"];
-          action = "<cmd>bw<CR>";
-          desc = "Wipeout buffer";
-        }
-        {
-          key = "<leader>bqa";
-          mode = ["n"];
-          action = "<cmd>bufdo bw<CR>";
-          desc = "Wipeout all buffers";
-          unique = true;
-        }
-        {
-          key = "<leader>bqo";
-          mode = ["n"];
-          action = "<cmd>%bw|e#|bw#<CR>";
-          desc = "Wipeout other buffers";
-        }
+        # ## Uncomment if mini.bufremove is disabled
+        ## ## Lifecycle (Delete)
+        # {
+        #   key = "<leader>bd";
+        #   mode = ["n"];
+        #   action = "<cmd>bd<CR>";
+        #   desc = "Delete buffer";
+        #   unique = true;
+        # }
+        # {
+        #   key = "<leader>bda";
+        #   mode = ["n"];
+        #   action = "<cmd>bufdo bd<CR>";
+        #   desc = "Delete all buffers";
+        #   unique = true;
+        # }
+        # {
+        #   key = "<leader>bdo";
+        #   mode = ["n"];
+        #   action = "<cmd>%bd|e#|bd#<CR>";
+        #   desc = "Delete other buffers";
+        #   unique = true;
+        # }
+        ## ## Lifecycle (Unload)
+        # {
+        #   key = "<leader>bc";
+        #   mode = ["n"];
+        #   action = "<cmd>bun<CR>";
+        #   desc = "Unload buffer";
+        #   unique = true;
+        # }
+        # {
+        #   key = "<leader>bca";
+        #   mode = ["n"];
+        #   action = "<cmd>bufdo bun<CR>";
+        #   desc = "Unload all buffers";
+        #   unique = true;
+        # }
+        # {
+        #   key = "<leader>bco";
+        #   mode = ["n"];
+        #   action = "<cmd>%bun|e#|bun#<CR>";
+        #   desc = "Unload other buffers";
+        #   unique = true;
+        # }
+        ## ## Lifecycle (Wipeout)
+        # {
+        #   key = "<leader>bq";
+        #   mode = ["n"];
+        #   action = "<cmd>bw<CR>";
+        #   desc = "Wipeout buffer";
+        #   unique = true;
+        # }
+        # {
+        #   key = "<leader>bqa";
+        #   mode = ["n"];
+        #   action = "<cmd>bufdo bw<CR>";
+        #   desc = "Wipeout all buffers";
+        #   unique = true;
+        # }
+        # {
+        #   key = "<leader>bqo";
+        #   mode = ["n"];
+        #   action = "<cmd>%bw|e#|bw#<CR>";
+        #   desc = "Wipeout other buffers";
+        #   unique = true;
+        # }
         # ------------------
         # ## +(w)indow Group
         # ------------------

@@ -12,7 +12,10 @@
       defaultEditor = lib.mkDefault true;
 
       settings.vim.runtimes = {
-        hapix.enable = lib.mkDefault true;
+        enable = lib.mkDefault true;
+
+        hapix-sched.enable = lib.mkDefault true;
+        hapix-helper.enable = lib.mkDefault true;
       };
     };
   };

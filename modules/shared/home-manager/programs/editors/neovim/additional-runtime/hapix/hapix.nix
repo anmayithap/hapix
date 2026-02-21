@@ -10,9 +10,14 @@
   }: let
     inherit (inputs.nvf.lib.nvim.dag) entryBefore;
 
-    cfg = config.programs.nvf.settings.vim.runtimes.hapix-sched;
+    cfg = config.programs.nvf.settings.vim.runtimes;
   in {
-    options.programs.nvf.settings.vim.runtimes.hapix-sched.enable = lib.mkEnableOption "Hapix Scheduler";
+    options.programs.nvf.settings.vim.runtimes = {
+      enable = lib.mkEnableOption "Hapix Runtimes";
+
+      hapix-sched.enable = lib.mkEnableOption "Hapix Scheduler";
+      hapix-helper.enable = lib.mkEnableOption "Hapix Helper";
+    };
 
     config.programs.nvf.settings.vim = lib.mkIf cfg.enable {
       additionalRuntimePaths = lib.mkBefore [
@@ -20,9 +25,16 @@
       ];
 
       luaConfigRC = {
-        hapix-sched = entryBefore ["lazyConfigs"] ''
-          require("hapix.sched").setup()
-        '';
+        hapix-sched = lib.mkIf cfg.hapix-sched.enable (
+          entryBefore ["lazyConfigs"] ''
+            require("hapix.sched").setup()
+          ''
+        );
+        hapix-helper = lib.mkIf cfg.hapix-helper.enable (
+          entryBefore ["lazyConfigs"] ''
+            require("hapix.helper").setup()
+          ''
+        );
       };
     };
   };
