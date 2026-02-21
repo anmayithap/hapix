@@ -22,6 +22,7 @@
       inputs.self.modules.homeManager.p7zip
       inputs.self.modules.homeManager.timg
       inputs.self.modules.homeManager.delta
+      inputs.self.modules.homeManager.man
     ];
   };
 }
