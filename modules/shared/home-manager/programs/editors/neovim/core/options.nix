@@ -60,9 +60,12 @@
         cursorline = mkHapixDefault true; # Highlight the current line
         cursorlineopt = mkHapixDefault "number"; # Only row number highlighted
         signcolumn = mkHapixDefault "yes"; # Show column with signs
-        fillchars = mkHapixDefault "foldopen:,foldclose:,fold: ,foldsep: ,diff:/";
         foldmethod = mkHapixDefault "indent";
-        foldtext = mkHapixDefault "";
+        foldlevel = mkHapixDefault 99;
+        foldlevelstart = mkHapixDefault 99;
+        foldenable = mkHapixDefault true;
+        foldcolumn = mkHapixDefault "1"; # Show column with folds
+        fillchars = mkHapixDefault "foldopen:,foldclose:,fold: ,foldsep: ,diff:/";
         inccommand = mkHapixDefault "split"; # Preview incremental substitution
         jumpoptions = mkHapixDefault "view";
         # ## Status line visualization behavior
