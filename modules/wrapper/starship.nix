@@ -13,7 +13,22 @@
     };
   };
 
-  flake.wrappers.starship = {wlib, ...}: {
+  flake.wrappers.starship = {
+    wlib,
+    lib,
+    ...
+  }: {
     imports = [wlib.wrapperModules.starship];
+
+    passthru = {
+      withShell = self: shell: let
+        bin = lib.getExe self;
+      in
+        if shell == "fish"
+        then "${bin} init ${shell} | source"
+        else if shell == "bash" || shell == "zsh"
+        then "eval \"$(${bin} init ${shell})\""
+        else throw;
+    };
   };
 }
