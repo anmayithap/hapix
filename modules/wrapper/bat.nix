@@ -1,12 +1,20 @@
-# -----------------------------------------------------------------------------
-# ## [WRAPPER -> bat] A cat(1) clone wrapper
-# -----------------------------------------------------------------------------
+#: ----------------------------------------------------------------------------
+#: ## [WRAPPER -> bat] A cat(1) clone wrapper
+#: ----------------------------------------------------------------------------
+#:
+#: ### `wrapperModules.bat` | `wrappers.bat`
+#:
+#: Module wrapper around the `bat` utility for syntax highlighting.
+#:
 #: Source: https://github.com/sharkdp/bat
 #: Changelog: https://github.com/sharkdp/bat/blob/master/CHANGELOG.md
 {
-  perSystem = {
+  perSystem = {lib, ...}: let
+    D = lib.mkDefault;
+  in {
     wrappers.packages = {
-      bat = true; # ## Exclude being built into `packages.*.*` flake output
+      #: Exclude being built into `packages.*.*` flake output
+      bat = D true;
     };
   };
 
@@ -17,40 +25,44 @@
     config,
     ...
   }: let
-    D = lib.mkDefault;
     O = lib.mkOption;
+    T = lib.types;
+    D = lib.mkDefault;
   in {
     imports = [wlib.modules.default];
 
     options = {
       bat = O {
-        type = lib.types.submodule {
+        type = T.submodule {
           options = {
             style = O {
-              type = lib.types.enum ["default" "full" "auto" "plain"];
+              type = T.enum ["default" "full" "auto" "plain"];
               default = "default";
-              defaultText = "default";
+              defaultText = lib.literalExpression ''"default"'';
+              example = lib.literalExpression ''"auto"'';
               description = ''
                 The style of the `bat` output.
 
                 By default, `bat` enables `changes`, `grid`, `header-filename`, `numbers` and `snip`.
 
-                The available pre-defined styles are:
+                The available [`pre-defined`][url-id] styles are:
 
-                - `default`: Enables the recommended style components listed above.
-                - `full`: Enables all available components.
-                - `auto`: Same as `default`, unless the output is piped.
-                - `plain`: Disables all available components.
+                - `default`: Enables the `recommended` style components listed above.
+                - `full`:    Enables all available components.
+                - `auto`:    Same as `default`, unless the output is piped.
+                - `plain`:   Disables all available components.
 
-                See: https://github.com/sharkdp/bat#output-style
+                [url-id]: https://github.com/sharkdp/bat#output-style
               '';
-              example = lib.literalExpression "auto";
             };
           };
         };
         default = {};
+        defaultText = lib.literalExpression ''{}'';
         description = ''
-          Specialized configuration module for `bat`.
+          Submodule `bat`.
+
+          Isolates `bat` options from the main `nix-wrapper-modules` options.
         '';
       };
     };
@@ -60,7 +72,7 @@
 
       flags."--style" = {
         data = config.bat.style;
-        esc-fn = toString;
+        esc-fn = D config.escapingFunction;
       };
     };
   };
