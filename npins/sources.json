@@ -1,0 +1,96 @@
+{
+  "pins": {
+    "den": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "denful",
+        "repo": "den"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "latest",
+      "revision": "5df0987658d6e44268abba953406480e9f066928",
+      "url": "https://api.github.com/repos/denful/den/tarball/latest",
+      "hash": "0jygy13vxb9x1c45kbmkb882z33kbl5bfz392x4db91ldp7yvjgh",
+      "frozen": true
+    },
+    "flake-file": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "denful",
+        "repo": "flake-file"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "latest",
+      "revision": "7d16dfaeb912d5efdff0d0eda2aabc0c934168dd",
+      "url": "https://api.github.com/repos/denful/flake-file/tarball/latest",
+      "hash": "0ma336ikg7b6dghg3nbz3d9xqpa4xlk5kjjbv7cjsayawwjnv5a5"
+    },
+    "flake-parts": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hercules-ci",
+        "repo": "flake-parts"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "17c9d6cdfc60c64f4ee8d306f9bc0b4ccb51481e",
+      "url": "https://github.com/hercules-ci/flake-parts/archive/17c9d6cdfc60c64f4ee8d306f9bc0b4ccb51481e.tar.gz",
+      "hash": "087pibayhglc1x4589vp6m29jv0xl92kl7m7nw9c3xz6dby9i7my"
+    },
+    "import-tree": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "denful",
+        "repo": "import-tree"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "latest",
+      "revision": "d321337efd0f23a9eb14a42adb7b2c29313ab274",
+      "url": "https://api.github.com/repos/denful/import-tree/tarball/latest",
+      "hash": "0zd4wz671snzkbwdnhk4wjkl8adzprka1hzj5byfm4lj57jb6fr6"
+    },
+    "nixpkgs": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NixOS",
+        "repo": "nixpkgs"
+      },
+      "branch": "nixpkgs-unstable",
+      "submodules": false,
+      "revision": "2db6e73b5d66ffd9d4c203f065d676f9a1eabbd2",
+      "url": "https://github.com/NixOS/nixpkgs/archive/2db6e73b5d66ffd9d4c203f065d676f9a1eabbd2.tar.gz",
+      "hash": "0ls4x2azyw7vvljxl2871sgjb164c0lb04bmak1qhja90n7f2p48"
+    },
+    "with-inputs": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "denful",
+        "repo": "with-inputs"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "latest",
+      "revision": "920b35279fb800c147017c8332e04a3daa994af4",
+      "url": "https://api.github.com/repos/denful/with-inputs/tarball/latest",
+      "hash": "1fyfa06qm3bwd0iym9kf190lkjrkprca20a8csppizn9s9ylbcyy"
+    }
+  },
+  "version": 5
+}
