@@ -1,82 +1,88 @@
-# ----------------------------------------------------------------------------
-# ## Flake Module: Set formatting for the project
-# ----------------------------------------------------------------------------
-{
+#: ----------------------------------------------------------------------------
+#: ## [FLAKE -> formatter] configure treefmt for formatting this flake
+#: ----------------------------------------------------------------------------
+{inputs, ...}: {
+  imports = [
+    inputs.treefmt-nix.flakeModule
+  ];
+
+  flake-file.inputs = {
+    #: Source: https://github.com/numtide/treefmt-nix
+    #: Documentation: https://treefmt.com/latest/
+    treefmt-nix = {
+      type = "github";
+      owner = "numtide";
+      repo = "treefmt-nix";
+      ref = "main";
+    };
+  };
+
+  flake-file.formatter = pkgs: pkgs.alejandra; #: Here we define the formatter for the generated flake.nix
+
   perSystem = {
     lib,
     config,
     ...
-  }: {
+  }: let
+    D = lib.mkDefault;
+    F = lib.mkForce;
+    B = lib.mkBefore;
+  in {
     treefmt = {
-      enableDefaultExcludes = lib.mkDefault true;
-      projectRootFile = lib.mkDefault config.flake-root.projectRootFile;
-
-      flakeCheck = lib.mkDefault true;
-      flakeFormatter = lib.mkDefault true;
+      projectRootFile = F ".envrc";
 
       settings = {
-        allow-missing-formatter = lib.mkDefault false;
-        excludes = lib.mkDefault [
-          ".direnv"
-          ".vscode"
-          ".git"
+        allow-missing-formatter = D false;
+        excludes = B [
+          ".direnv/*"
+          ".vscode/*"
+          "*cache/*"
+          ".pre-commit-config.yaml"
+          ".git/*"
+          "**/.gitignore"
+          "**/.gitattributes"
+          "flake.lock"
+          "flake.nix"
         ];
-        fail-on-change = lib.mkDefault false;
+        fail-on-change = D false;
+        quiet = D false;
+        walk = D "filesystem";
       };
 
       programs = {
-        # ## Nix Configuration
+        # ## Nix formatters | linters
         alejandra = {
-          enable = lib.mkDefault true;
+          enable = D true;
         };
         deadnix = {
-          enable = lib.mkDefault true;
-        };
-        nixf-diagnose = {
-          enable = lib.mkDefault true;
+          enable = D true;
         };
         statix = {
-          enable = lib.mkDefault true;
+          enable = D true;
         };
-
-        # ## Markdown Configuration
-        rumdl-check = {
-          enable = lib.mkDefault true;
-        };
-        rumdl-format = {
-          enable = lib.mkDefault true;
-        };
-
-        # ## Shell Scripting Configuration
-        shellcheck = {
-          enable = lib.mkDefault true;
-
-          external-sources = lib.mkDefault true;
-          extra-checks = lib.mkDefault ["all"];
-        };
-        shfmt = {
-          enable = lib.mkDefault true;
-          useEditorConfig = lib.mkDefault true;
-        };
-
-        # ## TOML Configuration
-        taplo = {
-          enable = lib.mkDefault true;
-        };
-
-        # ## YAML Configuration
-        yamlfmt = {
-          enable = lib.mkDefault true;
-        };
-        yamllint = {
-          enable = lib.mkDefault true;
-        };
-
-        # ## JSON Configuration
-        jsonfmt = {
-          enable = lib.mkDefault true;
+        # ## Miscellaneous formatters | linters
+        typos = {
+          enable = D true;
+          finalPackage = D config.packages.hapix-typos;
         };
       };
+    };
+
+    #: Inject treefmt in nix devShell
+    devshells.default = {
+      packages = [
+        #: `treefmt`
+        config.treefmt.build.wrapper
+      ];
+
+      commands = [
+        {
+          name = "fmt";
+          help = "Run declared nix formatter";
+          category = "flake";
+          command = "nix fmt";
+        }
+      ];
     };
   };
 }

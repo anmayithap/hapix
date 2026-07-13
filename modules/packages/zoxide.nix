@@ -1,6 +1,6 @@
-# -----------------------------------------------------------------------------
-# ## [PACKAGES -> zoxide] a smarter cd command
-# -----------------------------------------------------------------------------
+#: ----------------------------------------------------------------------------
+#: ## [PACKAGES -> zoxide] a smarter cd command
+#: ----------------------------------------------------------------------------
 #: Source: https://github.com/ajeetdsouza/zoxide
 #: Documentation: https://github.com/ajeetdsouza/zoxide#configuration
 #: Changelog: https://github.com/ajeetdsouza/zoxide/blob/main/CHANGELOG.md

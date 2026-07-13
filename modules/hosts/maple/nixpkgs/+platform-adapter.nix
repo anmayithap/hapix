@@ -1,8 +1,0 @@
-# ----------------------------------------------------------------------------
-# ## Maple Host Module: Configure nixpkgs for `maple` host
-# ----------------------------------------------------------------------------
-{
-  flake.modules.generic.maple = {lib, ...}: {
-    nixpkgs.hostPlatform = lib.mkForce "aarch64-darwin";
-  };
-}

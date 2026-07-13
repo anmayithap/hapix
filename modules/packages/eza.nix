@@ -1,6 +1,6 @@
-# -----------------------------------------------------------------------------
-# ## [PACKAGES -> eza] modern replacement for ls
-# -----------------------------------------------------------------------------
+#: ----------------------------------------------------------------------------
+#: ## [PACKAGES -> eza] modern replacement for ls
+#: ----------------------------------------------------------------------------
 #: Source: https://github.com/eza-community/eza
 #: Documentation: https://github.com/eza-community/eza#command-line-options
 #: Changelog: https://github.com/eza-community/eza/blob/main/CHANGELOG.md

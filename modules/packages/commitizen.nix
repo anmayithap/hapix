@@ -1,6 +1,6 @@
-# ----------------------------------------------------------------------------
-# ## [PACKAGES -> commitizen] release management tool
-# ----------------------------------------------------------------------------
+#: ---------------------------------------------------------------------------
+#: ## [PACKAGES -> commitizen] release management tool
+#: ---------------------------------------------------------------------------
 #: Source: https://github.com/commitizen-tools/commitizen
 #: Documentation: https://commitizen-tools.github.io/commitizen
 #: Changelog: https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md

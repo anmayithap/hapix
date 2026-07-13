@@ -1,6 +1,6 @@
-# -----------------------------------------------------------------------------
-# ## [PACKAGES -> starship] cross-shell prompt
-# -----------------------------------------------------------------------------
+#: ----------------------------------------------------------------------------
+#: ## [PACKAGES -> starship] cross-shell prompt
+#: ----------------------------------------------------------------------------
 #: Source: https://github.com/starship/starship
 #: Documentation: https://starship.rs/config/
 #: Changelog: https://github.com/starship/starship/blob/main/CHANGELOG.md
